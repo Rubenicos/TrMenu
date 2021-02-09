@@ -6,7 +6,7 @@ import me.arasple.mc.trmenu.api.Extends.getMenuSesssionCheck
 import me.arasple.mc.trmenu.api.nms.NMS
 import me.arasple.mc.trmenu.modules.display.icon.IconProperty
 import me.arasple.mc.trmenu.modules.display.icon.IconSettings
-import me.arasple.mc.trmenu.modules.service.mirror.Mirror
+import me.arasple.mc.trmenu.modules.service.Mirror
 import me.arasple.mc.trmenu.util.Msger
 import me.arasple.mc.trmenu.util.Tasks
 import org.bukkit.entity.Player
@@ -33,7 +33,10 @@ class Icon(
 
     fun setItemStackSync(player: Player, session: Menu.Session, updateDynamicSlots: Boolean) {
         val property = getIconProperty(player)
-        val slots = if (updateDynamicSlots) property.display.getPosition(player, session.page) else property.display.getCurrentPosition(player, session.page)
+        val slots = if (updateDynamicSlots) property.display.getPosition(
+            player,
+            session.page
+        ) else property.display.getCurrentPosition(player, session.page)
         setItemStack(player, session, property, slots)
     }
 
@@ -58,7 +61,7 @@ class Icon(
                 if (it.isEmpty()) return@let
                 it.forEach {
                     val period = it.key.toLong()
-                    object : BukkitRunnable() {
+                    menu.tasking.task(player, object : BukkitRunnable() {
                         override fun run() {
                             Mirror.eval("Icon:updateItem(sync)") {
                                 if (session.isDifferent(sessionId)) cancel()
@@ -68,7 +71,7 @@ class Icon(
                                 }
                             }
                         }
-                    }.runTaskTimer(TrMenu.plugin, period, period)
+                    }.runTaskTimer(TrMenu.plugin, period, period))
                 }
             }
 
