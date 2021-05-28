@@ -2,9 +2,11 @@ package me.arasple.mc.trmenu.api.action.impl.item
 
 import io.izzel.taboolib.internal.apache.lang3.math.NumberUtils
 import me.arasple.mc.trmenu.api.action.base.Action
+import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.EnchantmentStorageMeta
 
 /**
  * @author Rubenicos
@@ -45,7 +47,18 @@ class ActionEnchantItem : Action("enchant(-)?item(s)?") {
                 }
                 item.itemMeta = meta
             }
-            if (enchant != null) item!!.addUnsafeEnchantment(enchant, level)
+            if (enchant != null && item != null) {
+                if (item.type == Material.BOOK) {
+                    item.type = Material.ENCHANTED_BOOK
+                }
+                if (item.type == Material.ENCHANTED_BOOK) {
+                    val meta = item.itemMeta as EnchantmentStorageMeta?
+                    meta!!.addStoredEnchant(enchant, level, true)
+                    item.itemMeta = meta
+                } else {
+                    item.addUnsafeEnchantment(enchant, level)
+                }
+            }
         }
     }
 
