@@ -3,10 +3,10 @@ package me.arasple.mc.trmenu.api.nms.impl
 import io.izzel.taboolib.Version
 import me.arasple.mc.trmenu.api.Extends.getMenuSession
 import me.arasple.mc.trmenu.api.nms.NMS
-import net.minecraft.server.v1_16_R1.*
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer
-import org.bukkit.craftbukkit.v1_16_R1.inventory.CraftItemStack
-import org.bukkit.craftbukkit.v1_16_R1.util.CraftChatMessage
+import net.minecraft.server.v1_16_R3.*
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack
+import org.bukkit.craftbukkit.v1_16_R3.util.CraftChatMessage
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
@@ -76,7 +76,7 @@ class NMSImpl : NMS() {
     }
 
     override fun asBukkitItem(itemStack: Any?): ItemStack? {
-        return if (itemStack == null) null else CraftItemStack.asBukkitCopy(itemStack as net.minecraft.server.v1_16_R1.ItemStack?)
+        return if (itemStack == null) null else CraftItemStack.asBukkitCopy(itemStack as net.minecraft.server.v1_16_R3.ItemStack?)
     }
 
     override fun getClickTypeIndex(clickType: Any): Int {

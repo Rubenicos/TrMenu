@@ -3,7 +3,7 @@ package me.arasple.mc.trmenu.modules.command.sub
 import io.izzel.taboolib.cronus.CronusUtils
 import io.izzel.taboolib.internal.apache.lang3.ArrayUtils
 import io.izzel.taboolib.kotlin.Indexed
-import io.izzel.taboolib.loader.PluginHandle
+import io.izzel.taboolib.loader.PluginBoot
 import io.izzel.taboolib.module.command.base.Argument
 import io.izzel.taboolib.module.command.base.BaseSubCommand
 import me.arasple.mc.trmenu.TrMenu
@@ -23,7 +23,7 @@ import me.arasple.mc.trmenu.util.Skulls
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
-import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.metadata.FixedMetadataValue
 
@@ -49,7 +49,7 @@ class CommandDebug : BaseSubCommand() {
         }
     )
 
-    val description: YamlConfiguration = PluginHandle.getPluginDescription()
+    val description: FileConfiguration = PluginBoot.getPluginFile().fileConfiguration
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
         if (args.isEmpty()) {
@@ -198,9 +198,7 @@ class CommandDebug : BaseSubCommand() {
                 }",
                 "§2bStats: §3${MetricsHandler.B_STATS?.isEnabled}",
                 "§2cStats: §3${MetricsHandler.C_STATS?.isEnabled}",
-                "§2TabooLib: §f${PluginHandle.getVersion()}",
-                "",
-                "§3TrMenu Built-Info: §b${description.getString("built-time")}§7, §3By §a${description.getString("built-by")}",
+                "§2TabooLib: §f${description.getString("lib-version")}",
                 "",
                 "§3§l「§8--------------------------------------------------§3§l」"
             )

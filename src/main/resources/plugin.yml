@@ -1,16 +1,18 @@
-name: ${name}
-main: ${main}
+name: TrMenu
+main: me.arasple.mc.trmenu.modules.internal.boot.PluginBoot
+version: ${version}
 
 authors:
   - Arasple
   - Bkm016
 
 api-version: 1.13
-lib-version: ${taboolib}
-lib-download: ${libDownload}
-version: ${version}
 
-github: https://github.com/Arasple/${name}
+lib-download: true
+lib-version: ${libVersion}
+loader-version: ${loaderVersion}
+
+github: https://github.com/TrMenu/TrMenu
 description: Modern & Advanced Menu-Plugin for Minecraft Servers
 license: https://github.com/TrMenu/TrMenu/blob/v2/LICENSE.md
 
@@ -24,7 +26,3 @@ softdepend:
   - Oraxen
   - SkinsRestorer
   - TokenManager
-
-built-time: ${built}
-built-by: ${builder}
-built-os: ${os}

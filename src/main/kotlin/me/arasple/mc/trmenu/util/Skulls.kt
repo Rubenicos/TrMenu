@@ -5,7 +5,7 @@ import com.google.gson.JsonParser
 import com.mojang.authlib.GameProfile
 import com.mojang.authlib.properties.Property
 import io.izzel.taboolib.Version
-import io.izzel.taboolib.loader.internal.IO
+import io.izzel.taboolib.loader.util.IO
 import io.izzel.taboolib.util.Strings
 import io.izzel.taboolib.util.lite.Materials
 import me.arasple.mc.trmenu.TrMenu
@@ -64,9 +64,9 @@ object Skulls {
                     val mojang = TrMenu.SETTINGS.getBoolean("Options.Skull-Mojang-API", false)
                     var texture: String? = null
                     if (mojang) {
-                        val profile = JsonParser().parse(IO.readFromURL("${MOJANG_API[0]}$id")) as JsonObject
+                        val profile = JsonParser().parse(IO.readFromURL("${MOJANG_API[0]}$id", "")) as JsonObject
                         val uuid = profile["id"].asString
-                        val textures = (JsonParser().parse(IO.readFromURL("${MOJANG_API[1]}$uuid")) as JsonObject).let {
+                        val textures = (JsonParser().parse(IO.readFromURL("${MOJANG_API[1]}$uuid", "")) as JsonObject).let {
                             return@let it.getAsJsonArray("properties")
                         }
 
@@ -74,7 +74,7 @@ object Skulls {
                             texture = element.asJsonObject["value"].asString
                         }
                     } else {
-                        val profile = JsonParser().parse(IO.readFromURL("${ASHCON_API[0]}$id")) as JsonObject
+                        val profile = JsonParser().parse(IO.readFromURL("${ASHCON_API[0]}$id", "")) as JsonObject
                         texture = profile.getAsJsonObject("textures").getAsJsonObject("raw").get("value").asString
                     }
                     CACHED_PLAYER_TEXTURE[id] = texture

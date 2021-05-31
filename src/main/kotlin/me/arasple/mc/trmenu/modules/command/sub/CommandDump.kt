@@ -1,7 +1,6 @@
 package me.arasple.mc.trmenu.modules.command.sub
 
 import io.izzel.taboolib.TabooLib
-import io.izzel.taboolib.loader.PluginHandle
 import io.izzel.taboolib.module.command.base.BaseSubCommand
 import me.arasple.mc.trmenu.TrMenu
 import me.arasple.mc.trmenu.modules.function.migrate.Migrate
@@ -28,7 +27,6 @@ class CommandDump : BaseSubCommand() {
     }
 
     private fun buildDump(): String {
-        val description = PluginHandle.getPluginDescription()
 
         return buildString {
             append("TrMenu Dump Information (${Migrate.getExactDate()})\n\n")
@@ -36,7 +34,7 @@ class CommandDump : BaseSubCommand() {
             append("| Server software: ${Bukkit.getServer().version} (${Bukkit.getServer().bukkitVersion})\n")
             append("| Java version: ${System.getProperty("java.version")}\n\n")
             append("| TabooLib: ${TabooLib.getVersion()}\n")
-            append("| TrMenu: ${TrMenu.plugin.description.version} / ${description.getString("built-time")} (Built by ${description.getString("built-by")})\n\n")
+            append("| TrMenu: ${TrMenu.plugin.description.version}\n\n")
             append("Installed Plugins: \n")
 
             Bukkit.getPluginManager().plugins.sortedBy { it.name }.forEach {

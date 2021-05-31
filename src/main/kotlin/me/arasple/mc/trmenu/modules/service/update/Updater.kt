@@ -3,7 +3,6 @@ package me.arasple.mc.trmenu.modules.service.update
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import io.izzel.taboolib.internal.apache.lang3.math.NumberUtils
-import io.izzel.taboolib.loader.PluginBase
 import io.izzel.taboolib.module.inject.TFunction
 import io.izzel.taboolib.module.inject.TListener
 import io.izzel.taboolib.module.inject.TSchedule
@@ -12,6 +11,7 @@ import io.izzel.taboolib.util.IO
 import me.arasple.mc.trmenu.TrMenu
 import me.arasple.mc.trmenu.api.Extends.sendLocale
 import me.arasple.mc.trmenu.modules.service.Mirror
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -37,7 +37,7 @@ object Updater {
 
     @TFunction.Init
     fun init() {
-        if (CURRENT_VERSION < 0) PluginBase.setDisabled(true)
+        if (CURRENT_VERSION < 0) Bukkit.getPluginManager().disablePlugin(TrMenu.plugin)
     }
 
     @TSchedule(delay = 20, period = 10 * 60 * 20, async = true)
@@ -55,7 +55,7 @@ object Updater {
                         val latestVersion = json.get("tag_name").asDouble
                         if (latestVersion > CURRENT_VERSION) {
                             LATEST_VERSION = latestVersion
-                            if (LATEST_VERSION < 0) PluginBase.setDisabled(true)
+                            if (LATEST_VERSION < 0) Bukkit.getPluginManager().disablePlugin(TrMenu.plugin)
                             if (!NOTIFY) {
                                 NOTIFY = true
                                 TLocale.sendToConsole("PLUGIN.UPDATE", LATEST_VERSION)
