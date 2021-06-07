@@ -10,7 +10,7 @@ version '2.09-UNOFFICIAL'
 
 taboolib {
     tabooLibVersion = '5.7.1'
-    loaderVersion = '3.0.3'
+    loaderVersion = '3.0.4'
     classifier = null
     builtin = true
 }
