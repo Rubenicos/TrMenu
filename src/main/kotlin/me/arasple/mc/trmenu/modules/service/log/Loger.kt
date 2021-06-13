@@ -28,12 +28,14 @@ object Loger {
     @TSchedule(delay = 20, period = 20 * 60, async = true)
     @TFunction.Cancel
     fun save() {
-        Mirror.eval("LogService:onSave(async)") {
-            waves.forEach { (id, logs) ->
-                val file = logFile(id)
-                logs.removeIf {
-                    file.appendText(it)
-                    true
+        if (TrMenu.SETTINGS.getBoolean("Options.Logger", true)) {
+            Mirror.eval("LogService:onSave(async)") {
+                waves.forEach { (id, logs) ->
+                    val file = logFile(id)
+                    logs.removeIf {
+                        file.appendText(it)
+                        true
+                    }
                 }
             }
         }
