@@ -10,7 +10,7 @@ import trplugins.menu.module.display.layout.MenuLayout
  */
 class SerialzeResult(
     val type: Type,
-    private var state: State = State.SUCCESS,
+    var state: State = State.SUCCESS,
     val errors: MutableList<String> = mutableListOf(),
     var result: Any? = null
 ) {
@@ -19,9 +19,9 @@ class SerialzeResult(
         return state == State.SUCCESS && result != null
     }
 
-    fun submitError(error: SerialzeError, vararg args: Any) {
+    fun submitError(error: SerializeError, vararg args: Any) {
         state = State.FAILED
-        errors.add(SerialzeError.formatInfo(error).replaceWithOrder(*args))
+        errors.add(SerializeError.formatInfo(error).replaceWithOrder(*args))
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -36,7 +36,8 @@ class SerialzeResult(
     enum class State {
 
         SUCCESS,
-        FAILED
+        FAILED,
+        IGNORE
 
     }
 

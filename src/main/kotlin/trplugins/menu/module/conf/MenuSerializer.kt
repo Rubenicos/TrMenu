@@ -2,9 +2,8 @@ package trplugins.menu.module.conf
 
 import trplugins.menu.api.reaction.Reactions
 import trplugins.menu.api.menu.ISerializer
-import taboolib.module.ui.receptacle.ReceptacleClickType
 import trplugins.menu.module.conf.prop.Property
-import trplugins.menu.module.conf.prop.SerialzeError
+import trplugins.menu.module.conf.prop.SerializeError
 import trplugins.menu.module.conf.prop.SerialzeResult
 import trplugins.menu.module.display.Menu
 import trplugins.menu.module.display.MenuSettings
@@ -16,7 +15,7 @@ import trplugins.menu.module.display.item.Lore
 import trplugins.menu.module.display.item.Meta
 import trplugins.menu.module.display.layout.Layout
 import trplugins.menu.module.display.layout.MenuLayout
-import trplugins.menu.module.display.suffixes
+import trplugins.menu.api.suffixes
 import trplugins.menu.module.display.texture.Texture
 import trplugins.menu.module.internal.script.js.ScriptFunction
 import trplugins.menu.util.bukkit.ItemMatcher
@@ -31,6 +30,7 @@ import taboolib.module.configuration.Type
 import taboolib.module.nms.ItemTag
 import taboolib.module.nms.ItemTagData
 import trplugins.menu.api.action.ofReaction
+import trplugins.menu.api.receptacle.ReceptacleClickType
 import java.io.File
 import kotlin.math.max
 
@@ -46,9 +46,14 @@ object MenuSerializer : ISerializer {
     override fun serializeMenu(file: File): SerialzeResult {
         val id = file.nameWithoutExtension
         val result = SerialzeResult(SerialzeResult.Type.MENU)
+        // 文件格式检测
+        if (!Type.values().any { it.suffixes.any { file.extension.equals(it, true) } }) {
+            result.state = SerialzeResult.State.IGNORE
+            return result
+        }
         // 文件有效检测
-        if (!(file.isFile && file.length() > 0 && file.canRead() && Type.values().any { it.suffixes.any { file.extension.equals(it, true) } })) {
-            result.submitError(SerialzeError.INVALID_FILE, file.name)
+        if (!(file.isFile && file.length() > 0 && file.canRead())) {
+            result.submitError(SerializeError.INVALID_FILE, file.name)
             return result
         }
         // 菜单类型
@@ -100,7 +105,7 @@ object MenuSerializer : ISerializer {
         val optionFreeSlots = Property.OPTION_FREE_SLOTS.ofStringList(conf)
         val optionDefaultLayout = Property.OPTION_DEFAULT_LAYOUT.ofInt(options, 0)
         val optionHidePlayerInventory = Property.OPTION_HIDE_PLAYER_INVENTORY.ofBoolean(options, false)
-        val optionHidePurePacket = Property.OPTION_PURE_PACKET.ofBoolean(options, true)
+//        val optionHidePurePacket = Property.OPTION_PURE_PACKET.ofBoolean(options, true)
         val optionMinClickDelay = Property.OPTION_MIN_CLICK_DELAY.ofInt(options, 200)
         val optionDependExpansions = Property.OPTION_DEPEND_EXPANSIONS.ofStringList(options)
         val boundCommands = Property.BINDING_COMMANDS.ofStringList(bindings)
@@ -119,7 +124,6 @@ object MenuSerializer : ISerializer {
             optionDependExpansions.toTypedArray(),
             optionMinClickDelay,
             optionHidePlayerInventory,
-            optionHidePurePacket,
             boundCommands.map { it.toRegex() },
             boundItems.map { ItemMatcher.of(it) }.toTypedArray(),
             Reactions.ofReaction(eventOpen),
@@ -178,7 +182,7 @@ object MenuSerializer : ISerializer {
                 return@let Configuration.loadFromString(it.saveToString().split("\n").joinToString("\n") {
 //                    VariableReader("@", "@")
                     it.parseIconId(id)
-                })
+                }, conf.type)
             }
 
             val refresh = Property.ICON_REFRESH.ofInt(section, -1)
@@ -206,7 +210,7 @@ object MenuSerializer : ISerializer {
             }.sortedBy { it.priority }
 
             if (defIcon.display.texture.isEmpty() || subs.any { it.display.texture.isEmpty() }) {
-                result.submitError(SerialzeError.INVALID_ICON_UNDEFINED_TEXTURE, id)
+                result.submitError(SerializeError.INVALID_ICON_UNDEFINED_TEXTURE, id)
             }
 
             Icon(id, refresh.toLong(), update.toTypedArray(), position, defIcon, IndivList(subs))

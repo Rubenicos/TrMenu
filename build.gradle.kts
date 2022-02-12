@@ -15,7 +15,6 @@ taboolib {
         "expansion-javascript",
         "module-kether",
         "module-ui",
-        "module-ui-receptacle",
         "module-lang",
         "module-database",
         "module-database-mongodb",
@@ -64,10 +63,12 @@ repositories {
 dependencies {
     taboo(project(":action")) { isTransitive = false }
     taboo(project(":assist")) { isTransitive = false }
+    taboo(project(":receptacle")) { isTransitive = false }
 
     // Libraries
     compileOnly(kotlin("stdlib"))
     compileOnly("org.apache.commons:commons-lang3:3.12.0")
+    compileOnly("com.electronwill.night-config:core:3.6.5")
 
     // Server Core
     compileOnly("ink.ptms.core:v11701:11701-minimize:mapped")
