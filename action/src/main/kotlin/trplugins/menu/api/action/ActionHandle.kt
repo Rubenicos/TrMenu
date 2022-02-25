@@ -26,6 +26,7 @@ class ActionHandle(
         BiFunction { _, _ -> EvalResult.TRUE },
     val placeholderParser: BiFunction<ProxyPlayer, String, String> =
         BiFunction { _, s -> s },
+    private val default: String = "tell"
 ) {
 
     val registries = mutableListOf<ActionBase>().also {
@@ -35,12 +36,16 @@ class ActionHandle(
 
             it.add(`class`.asSubclass(ActionBase::class.java).invokeConstructor(this))
         }
-    }.toTypedArray()
+    }
+
+    fun registerActions(vararg bases: ActionBase) {
+        bases.forEach { registries.add(it) }
+    }
 
     fun getFindRegistered(key: String): ActionBase =
         registries.find { key.lowercase() == it.lowerName || it.regex.matches(key.lowercase()) } ?: defaultAction
 
-    val defaultAction = registries.find { it.name.equals("kether", true) }!!
+    val defaultAction by lazy { registries.find { it.name.equals(default, true) }!! }
 
     fun runAction(player: ProxyPlayer, actions: List<String>) {
         runAction(player, ActionEntry.of(this, actions))

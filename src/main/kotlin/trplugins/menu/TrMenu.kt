@@ -38,10 +38,11 @@ object TrMenu : Plugin() {
         private set
 
     lateinit var actionHandle: ActionHandle
+        private set
     
     override fun onLoad() {
         Language.default = "en_US"
-        actionHandle = ActionHandle({ t, u -> t.evalScript(u) }, { t, u -> t.session().parse(u) })
+        actionHandle = ActionHandle({ t, u -> t.evalScript(u) }, { t, u -> t.session().parse(u) }, "kether")
         console().sendLang("Plugin-Loading", Bukkit.getVersion())
     }
 
