@@ -6,7 +6,7 @@ import org.bukkit.event.inventory.InventoryType
 import taboolib.common.platform.command.subCommand
 import taboolib.common.platform.function.submit
 import taboolib.library.xseries.XMaterial
-import trplugins.menu.api.receptacle.ChestInventory
+import trplugins.menu.api.receptacle.vanilla.window.ChestInventory
 import trplugins.menu.api.receptacle.createReceptacle
 
 /**
@@ -23,7 +23,7 @@ object CommandTest : CommandExpression {
                 it.rows = 3
             }
 
-            chest.type.totalSlots.forEach { chest.setItem(XMaterial.values().random().parseItem(), it) }
+            chest.type.totalSlots.forEach { chest.setElement(XMaterial.values().random().parseItem(), it) }
             chest.open(player)
 
             val task = submit(delay = 20, period = 10, async = false) {

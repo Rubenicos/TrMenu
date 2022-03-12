@@ -12,7 +12,7 @@ import taboolib.module.lang.asLangTextList
 import taboolib.platform.util.asLangText
 import taboolib.platform.util.buildItem
 import taboolib.platform.util.sendLang
-import trplugins.menu.api.receptacle.ChestInventory
+import trplugins.menu.api.receptacle.vanilla.window.ChestInventory
 import trplugins.menu.api.receptacle.ReceptacleClickType
 
 /**
@@ -52,24 +52,24 @@ object CommandSounds : CommandExpression {
             .toMap()
 
         receptacle.hidePlayerInventory(true)
-        receptacle.setItem(if (prevNext[0]) PREV[0] else PREV[1], prev)
-        receptacle.setItem(if (prevNext[1]) NEXT[0] else NEXT[1], next)
-        receptacle.setItem(CTRL, ctrl)
+        receptacle.setElement(if (prevNext[0]) PREV[0] else PREV[1], prev)
+        receptacle.setElement(if (prevNext[1]) NEXT[0] else NEXT[1], next)
+        receptacle.setElement(CTRL, ctrl)
 
         slotMap.forEach { (slot, index) ->
-            receptacle.setItem(DISPLAY(sounds[index].name), slot)
+            receptacle.setElement(DISPLAY(sounds[index].name), slot)
         }
 
-        receptacle.onOpen { player, _ ->
+        receptacle.onOpen = { player, _ ->
             playingSounds[player] = mutableSetOf()
         }
 
-        receptacle.onClose { player, _ ->
+        receptacle.onClose = { player, _ ->
             stopPlaying(player)
             playingSounds.remove(player)
         }
 
-        receptacle.onClick { _, e ->
+        receptacle.onClick = onClick@{ _, e ->
             val slot = e.slot
             if (slot < 0) return@onClick
 
