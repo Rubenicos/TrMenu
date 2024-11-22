@@ -24,7 +24,7 @@ class Function(handle: ActionHandle) : ActionBase(handle), ActionEval {
     override fun onEval(contents: ActionContents, player: ProxyPlayer, placeholderPlayer: ProxyPlayer): Boolean {
         val session = player.session()
         val menu = session.menu ?: return true
-        val func = contents.stringContent().parseContent(placeholderPlayer).split('_')
+        val func = contents.stringContent().parseContent(placeholderPlayer).split(' ')
 
         menu.settings.internalFunctions.forEach {
             if (it.id == func[0]) {
