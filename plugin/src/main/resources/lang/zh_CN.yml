@@ -8,7 +8,7 @@ Plugin-Update:
   - '&bhttps://www.spigotmc.org/resources/83120/'
 Plugin-Version:
   - '&8[&3Tr&bMenu&8] &b版本 &8| &3你正在使用社区维护版本:'
-  - '&bhttps://github.com/Dreeam-qwq/TrMenu'
+  - '&bhttps://github.com/Coderkuo/TrMenu'
 Plugin-Dependency-Hooked: '&8[&3Tr&bMenu&8] &6挂钩 &8| &7软依赖 &f{0} &7已兼容.'
 Plugin-Dependency-Abuse: '&8[&3Tr&bMenu&8] &6挂钩 &8| &4试图使用未挂钩插件 &c{0}'
 
