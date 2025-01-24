@@ -123,7 +123,7 @@ class ItemMatcher(private val matcher: Set<Match>) {
             val damageMatch = opposition(oppose(damage), damage == null || itemStack.durability == damage.second)
 
             val modelData = getTrait(MODEL_DATA)?.let { Pair(it.first, it.second.toIntOrNull()) }
-            val modelDataMatch = opposition(oppose(modelData), modelData == null || itemStack.itemMeta?.customModelData == modelData.second)
+            val modelDataMatch = opposition(oppose(modelData), modelData == null || (itemStack.itemMeta?.hasCustomModelData() == true && itemStack.itemMeta?.customModelData == modelData.second))
 
             val name = getTrait(NAME)
             val nameMatch = opposition(oppose(name), name == null || itemStack.itemMeta?.displayName?.contains(name.second.colored(), true) == true)
