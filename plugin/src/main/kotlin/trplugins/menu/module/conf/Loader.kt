@@ -128,6 +128,9 @@ object Loader {
      * 监听菜单
      */
     fun listen(file: File) {
+        if (!TrMenu.SETTINGS.getBoolean("Loader.Listen-Files", true)) {
+            return
+        }
         FileListener.listener(file) {
             val start = System.currentTimeMillis()
             val reload = try {
