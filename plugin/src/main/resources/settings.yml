@@ -50,6 +50,7 @@ Database:
     Player: USERNAME
 
 Loader:
+  Listen-Files: true
   Menu-Files:
     - 'plugins/CustomMenusFolder'
 
