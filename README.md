@@ -1,17 +1,17 @@
 ![](animation.gif)
 
-![](https://img.shields.io/github/last-commit/Winds-Studio/TrMenu?logo=artstation&style=for-the-badge&color=9266CC)![](https://img.shields.io/github/issues/Winds-Studio/TrMenu?style=for-the-badge&logo=slashdot)![](https://img.shields.io/github/release/Winds-Studio/TrMenu?style=for-the-badge&color=00C58E&logo=ionic)
+![](https://img.shields.io/github/last-commit/CoderKuo/TrMenu?logo=artstation&style=for-the-badge&color=9266CC)![](https://img.shields.io/github/issues/CoderKuo/TrMenu?style=for-the-badge&logo=slashdot)![](https://img.shields.io/github/release/CoderKuo/TrMenu?style=for-the-badge&color=00C58E&logo=ionic)
 
 ---
 
 ### 🔔 What's new in this fork?
 
-- **Support 1.8.9 ~ 1.20.4**
+- **Support 1.8.9 ~ 1.21.3**
 - **Fix Skull display**
 - **[International Language](https://github.com/Dreeam-qwq/TrMenu/pull/64)**
 - **Something more...**
 
- **Notice: I maintain this fork only based on my interests.**
+ **Notice: We maintain this fork only based on my interests.**
 
 ---
 
