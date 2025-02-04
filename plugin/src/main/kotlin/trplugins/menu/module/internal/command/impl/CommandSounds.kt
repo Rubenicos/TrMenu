@@ -27,7 +27,7 @@ object CommandSounds : CommandExpression {
     override val command = subCommand {
         dynamic(optional = true) {
             suggestion<Player>(uncheck = true) { _, _ ->
-                XSound.values().map { it.name }
+                XSound.getValues().map { it.name() }
             }
 
             execute<Player> { sender, _, argument ->
@@ -40,9 +40,8 @@ object CommandSounds : CommandExpression {
     }
 
     private fun open(player: Player, page: Int, filter: String?) {
-        val sounds = XSound.values().filter { filter == null || it.name.contains(filter, true) }.sorted().let {
-            it.subList(54 * page, it.size)
-        }
+        val sounds = XSound.getValues().filter { filter == null || it.name().contains(filter, true) }.sortedBy { it.name() }
+        .let { it.subList(54 * page, it.size) }
 
         val prevNext = arrayOf(page > 0, sounds.size > 54)
         val receptacle = ChestInventory(6, player.asLangText("Menu-Internal-Sounds-Title", page, filter ?: "*"))
@@ -57,7 +56,7 @@ object CommandSounds : CommandExpression {
         receptacle.setElement(CTRL, ctrl)
 
         slotMap.forEach { (slot, index) ->
-            receptacle.setElement(DISPLAY(sounds[index].name), slot)
+            receptacle.setElement(DISPLAY(sounds[index].name()), slot)
         }
 
         receptacle.onOpen = { player, _ ->
@@ -88,7 +87,7 @@ object CommandSounds : CommandExpression {
                         ReceptacleClickType.DROP -> sound.play(player, 1f, 0f)
                         ReceptacleClickType.LEFT -> sound.play(player, 1f, 1f)
                         ReceptacleClickType.RIGHT -> sound.play(player, 1f, 2f)
-                        ReceptacleClickType.MIDDLE -> player.sendLang("Menu-Internal-Sounds-Copy", sound.name)
+                        ReceptacleClickType.MIDDLE -> player.sendLang("Menu-Internal-Sounds-Copy", sound.name())
                         else -> {
                         }
                     }

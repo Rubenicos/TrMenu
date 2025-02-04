@@ -87,10 +87,8 @@ object Loader {
                 if (result.state == SerialzeResult.State.IGNORE) {
                     return@start result
                 }
-                if (result.succeed()) {
-                    if (TrMenu.SETTINGS.getBoolean("Loader.Listen-Files", true)) {
-                        listen(it)
-                    }
+                if (result.succeed() && TrMenu.SETTINGS.getBoolean("Loader.Listen-Files", true)) {
+                    listen(it)
                 } else errors.addAll(result.errors)
                 result
             },
