@@ -10,6 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import taboolib.common.platform.function.adaptPlayer
+import taboolib.common.platform.function.warning
 import taboolib.common.util.random
 import taboolib.library.xseries.XMaterial
 import taboolib.module.chat.Components
@@ -166,7 +167,13 @@ class Assist {
      * Internal - TabooLib Utils
      */
 
+    @Deprecated("Typo method name", ReplaceWith("getItemBuilder()"), DeprecationLevel.WARNING)
     fun getItemBuildr(): ItemBuilder {
+        warning("Assist#getItemBuildr() is deprecated, use getItemBuilder() instead.")
+        return ItemBuilder(XMaterial.STONE)
+    }
+
+    fun getItemBuilder(): ItemBuilder {
         return ItemBuilder(XMaterial.STONE)
     }
 
