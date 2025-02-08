@@ -25,6 +25,7 @@ taboolib {
             name("EcoItems").with("bukkit").optional(true)
             name("MythicMobs").with("bukkit").optional(true)
             name("HMCCosmetics").with("bukkit").optional(true)
+            name("PxRpg").with("bukkit").optional(true)
             name("NBTAPI").with("bukkit").optional(true).loadafter(true)
             name("TrMenu-Graal").with("bukkit").optional(true)
         }
@@ -52,7 +53,7 @@ dependencies {
     taboo(project(":common"))
     taboo(project(":api:receptacle"))
     taboo(project(":api:action"))
-    taboo("ink.ptms:um:1.1.2")
+    taboo("ink.ptms:um:1.1.5")
 
     // Libraries
     compileOnly("org.apache.commons:commons-lang3:3.17.0")

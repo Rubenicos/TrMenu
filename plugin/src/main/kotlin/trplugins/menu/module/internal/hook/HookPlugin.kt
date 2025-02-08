@@ -90,7 +90,7 @@ object HookPlugin {
         return get(HookMagicCosmetics::class.java)
     }
 
-    fun getMagicGem() : HookMagicGem {
+    fun getMagicGem(): HookMagicGem {
         return get(HookMagicGem::class.java)
     }
 
@@ -116,6 +116,10 @@ object HookPlugin {
 
     fun getGraalvm(): HookGraalJS {
         return HookGraalJS()
+    }
+
+    fun getPxRpg(): HookPxRpg {
+        return get(HookPxRpg::class.java)
     }
 
 }
