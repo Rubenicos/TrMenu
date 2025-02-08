@@ -30,11 +30,11 @@ class EnchantItem(handle: ActionHandle) : ActionBase(handle) {
                 val l = split[2].split("-").toTypedArray()
                 val level = if (l.size > 1) ((l[0].toIntOrNull()?: 0)..(l[1].toIntOrNull()?: 0)).random() else l[0].toIntOrNull()?: 0
                 if (level > 0) {
-                    val enchant = XEnchantment.matchXEnchantment(split[1])
+                    val enchant = XEnchantment.of(split[1])
                     if (enchant.isPresent) {
                         enchant(
                             ItemHelper.fromPlayerInv(player.cast<Player>().inventory, split[0]),
-                            enchant.get().enchant,
+                            enchant.get().get(),
                             level
                         )
                     }
