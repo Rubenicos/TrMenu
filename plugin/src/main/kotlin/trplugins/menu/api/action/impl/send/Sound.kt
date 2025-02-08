@@ -25,7 +25,7 @@ class Sound(handle: ActionHandle) : ActionBase(handle) {
             if (split.isNotEmpty()) {
                 val sound: XSound
                 try {
-                    sound = XSound.matchXSound(split[0]).get()
+                    sound = XSound.of(split[0]).get()
                 } catch (t: Throwable) {
                     player.sendLang("Menu-Action-Sound", it)
                     return

@@ -28,7 +28,7 @@ open class Item(
 
     internal val cache = object: HashMap<Int, ItemStack>() {
         override fun put(key: Int, value: ItemStack): ItemStack? {
-            if (value.type == XMaterial.PLAYER_HEAD.parseMaterial()) {
+            if (value.type == XMaterial.PLAYER_HEAD.get()) {
                 return super.put(key, value.clone())
             }
             return super.put(key, value)
