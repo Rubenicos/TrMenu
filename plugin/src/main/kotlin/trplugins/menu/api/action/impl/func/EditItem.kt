@@ -148,7 +148,7 @@ class EditItem(handle: ActionHandle) : ActionBase(handle) {
                 if (method == 1) {
                     val material = XMaterial.matchXMaterial(value[0])
                     if (material.isPresent) {
-                        val mat = material.get().parseMaterial() ?: return
+                        val mat = material.get().get() ?: return
                         if (item is Array<*>) {
                             item.forEach { (it as ItemStack?)?.let { item -> material(item, mat) } }
                         } else if (item is ItemStack) material(item, mat)
@@ -190,7 +190,7 @@ class EditItem(handle: ActionHandle) : ActionBase(handle) {
                 } else if (item is ItemStack) customModelData(item, model)
             }
             6 -> { // Enchantment
-                val enchant = XEnchantment.matchXEnchantment(value[0]).getOrNull()?.enchant ?: return
+                val enchant = XEnchantment.of(value[0]).getOrNull()?.get() ?: return
                 val level = if (value.size == 1) 1 else value[1].toIntOrNull() ?: return
                 if (item is Array<*>) {
                     item.forEach { (it as ItemStack?)?.let { item -> enchantment(item, enchant, level) } }
