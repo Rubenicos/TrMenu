@@ -123,7 +123,7 @@ object HookPlugin {
     }
 
     fun getNexo(): HookNexo {
-        return HookNexo()
+        return get(HookNexo::class.java)
     }
 
 }
