@@ -118,4 +118,8 @@ object HookPlugin {
         return HookGraalJS()
     }
 
+    fun getNexo(): HookNexo {
+        return HookNexo()
+    }
+
 }
