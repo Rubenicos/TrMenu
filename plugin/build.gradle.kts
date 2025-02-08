@@ -26,6 +26,7 @@ taboolib {
             name("MythicMobs").with("bukkit").optional(true)
             name("HMCCosmetics").with("bukkit").optional(true)
             name("PxRpg").with("bukkit").optional(true)
+            name("Nexo").with("bukkit").optional(true)
             name("NBTAPI").with("bukkit").optional(true).loadafter(true)
             name("TrMenu-Graal").with("bukkit").optional(true)
         }
