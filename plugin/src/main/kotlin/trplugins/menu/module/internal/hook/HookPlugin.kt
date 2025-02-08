@@ -122,4 +122,8 @@ object HookPlugin {
         return get(HookPxRpg::class.java)
     }
 
+    fun getNexo(): HookNexo {
+        return HookNexo()
+    }
+
 }
