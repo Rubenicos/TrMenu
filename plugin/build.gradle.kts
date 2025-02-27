@@ -33,6 +33,7 @@ taboolib {
     }
     relocate("trplugins.menu", group.toString())
     relocate("ink.ptms.um","${group}.um")
+    relocate("top.maplex.arim","${group}.arim")
 }
 
 repositories {
@@ -48,6 +49,7 @@ repositories {
     maven("https://r.irepo.space/maven/")
     maven("https://repo.auxilor.io/repository/maven-public/")
     maven("https://repo.hibiscusmc.com/releases/")
+    maven("https://repo.momirealms.net/releases/")
 }
 
 dependencies {
@@ -55,6 +57,7 @@ dependencies {
     taboo(project(":api:receptacle"))
     taboo(project(":api:action"))
     taboo("ink.ptms:um:1.1.5")
+    taboo("top.maplex.arim:Arim:1.2.11")
 
     // Libraries
     compileOnly("org.apache.commons:commons-lang3:3.17.0")
@@ -87,5 +90,7 @@ dependencies {
     compileOnly("pers.neige.neigeitems:NeigeItems:1.17.24") { isTransitive = false }
     compileOnly("com.willfp:eco:6.71.3") { isTransitive = false }
     compileOnly("com.willfp:EcoItems:5.49.1") { isTransitive = false }
+    compileOnly("net.momirealms:craft-engine-core:0.0.22") { isTransitive = false }
+    compileOnly("net.momirealms:craft-engine-bukkit:0.0.22") { isTransitive = false }
     compileOnly(fileTree("libs"))
 }
