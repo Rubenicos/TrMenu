@@ -126,4 +126,8 @@ object HookPlugin {
         return get(HookNexo::class.java)
     }
 
+    fun getCraftEngine(): HookCraftEngine {
+        return get(HookCraftEngine::class.java)
+    }
+
 }
