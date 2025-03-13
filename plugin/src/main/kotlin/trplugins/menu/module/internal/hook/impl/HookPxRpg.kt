@@ -7,13 +7,9 @@ import com.pxpmc.pxrpg.api.modules.item.ItemModule
 import com.pxpmc.pxrpg.api.util.ParameterResolver
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import taboolib.common.LifeCycle
-import taboolib.common.platform.Awake
 import taboolib.library.xseries.XMaterial
 import taboolib.platform.util.buildItem
 import trplugins.menu.module.internal.hook.HookAbstract
-import trplugins.menu.module.internal.hook.HookPlugin.getPxRpg
-import trplugins.menu.module.internal.migrate.plugin.MigrateDeluxeMenus.checkHooked
 
 
 class HookPxRpg : HookAbstract() {
@@ -30,6 +26,9 @@ class HookPxRpg : HookAbstract() {
      */
     fun getItem(id: String, player: Player? = null): ItemStack {
         if (checkHooked()) {
+            if (!::manager.isInitialized) {
+                manager = Module.getModule(ItemModule::class.java).itemManager
+            }
             val args: String? = id.split(",").getOrNull(1)
             val itemId: String = id.split(",")[0]
             val itemConfig = manager.getRegister(itemId)
@@ -52,20 +51,13 @@ class HookPxRpg : HookAbstract() {
 
     fun getId(itemStack: ItemStack): String {
         if (checkHooked()) {
+            if (!::manager.isInitialized) {
+                manager = Module.getModule(ItemModule::class.java).itemManager
+            }
             val item = manager.toThat(MAPI.getBukkitPxRpgAPI().toPxRpgItemStack(itemStack))
             return item.id
         }
         return "UNHOOKED"
-    }
-
-    companion object {
-
-        @Awake(LifeCycle.ENABLE)
-        private fun init() {
-            if (checkHooked()) {
-                getPxRpg().manager = Module.getModule(ItemModule::class.java).itemManager
-            }
-        }
     }
 
 }
