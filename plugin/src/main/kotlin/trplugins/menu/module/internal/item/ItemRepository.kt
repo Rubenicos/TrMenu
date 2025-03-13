@@ -30,7 +30,7 @@ object ItemRepository {
 
     private fun save(isCanceling: Boolean) {
         writing = true
-        data.getKeys(true).filter { !itemStacks.keys.contains(it) }.forEach { data[it] = null }
+        data.getKeys(false).filter { !itemStacks.keys.contains(it) }.forEach { data[it] = null }
         itemStacks.forEach { (id, item) -> data.setItemStack(id, item) }
         data.saveToFile()
         if (!isCanceling) submit(delay = 2L, async = !Bukkit.isPrimaryThread()) { writing = false }
@@ -39,7 +39,7 @@ object ItemRepository {
     @Schedule(delay = 20)
     fun load() {
         if (writing) return
-        val keys = data.getKeys(true).toMutableList()
+        val keys = data.getKeys(false).toMutableList()
         itemStacks.clear()
         keys.removeIf {
             data.getItemStack(it)?.let { item ->
