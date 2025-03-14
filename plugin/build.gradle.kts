@@ -57,7 +57,7 @@ dependencies {
     taboo(project(":api:receptacle"))
     taboo(project(":api:action"))
     taboo("ink.ptms:um:1.1.5")
-    taboo("top.maplex.arim:Arim:1.2.11")
+    taboo("top.maplex.arim:Arim:1.2.13")
 
     // Libraries
     compileOnly("org.apache.commons:commons-lang3:3.17.0")
