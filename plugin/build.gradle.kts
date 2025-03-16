@@ -7,6 +7,7 @@ taboolib {
             name("Score2")
         }
         dependencies {
+            name("MagicCosmetics").with("bukkit").optional(true)
             name("PlaceholderAPI").with("bukkit").optional(true)
             name("Zaphkiel").with("bukkit").optional(true)
             name("Skulls").with("bukkit").optional(true)
