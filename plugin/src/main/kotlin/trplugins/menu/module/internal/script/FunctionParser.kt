@@ -18,7 +18,7 @@ import trplugins.menu.util.print
  */
 object FunctionParser {
 
-    private val functionPattern = "\$?\\{(\\w+)s?: ?(.+?)}$".toRegex()
+    private val functionPattern = "\\$?\\{(\\w+)s?: ?(.+?[^\\\\}])}".toRegex()
     private val internalFunctionPattern = "\\$\\{([^0-9].+?[^\\\\}])}".toRegex()
 
     fun parse(player: Player, input: String, block: (type: String, value: String) -> String? = { _, value -> "{$value}" }): String {
