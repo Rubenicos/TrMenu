@@ -229,6 +229,16 @@ enum class Property(val default: String, val regex: Regex) {
     ICON_DISPLAY_NBT("nbt", "nbts?"),
 
     /**
+     * 菜单图标 - Tooltip Style
+     */
+    ICON_DISPLAY_TOOLTIP("tooltip", "tooltip(_style)?"),
+
+    /**
+     * 菜单图标 - ItemModel
+     */
+    ICON_DISPLAY_ITEM_MODEL("model", "(item)?_?model"),
+
+    /**
      * 菜单图标 - 子图标
      */
     ICON_SUB_ICONS("icons", "(sub|priority)?icons?"),

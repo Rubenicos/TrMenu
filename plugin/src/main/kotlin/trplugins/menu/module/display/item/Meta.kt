@@ -1,5 +1,6 @@
 package trplugins.menu.module.display.item
 
+import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -20,6 +21,8 @@ class Meta(
     val shiny: String,
     val flags: Array<ItemFlag>,
     val nbt: ItemTag?,
+    val tooltip: String?,
+    val itemModel: String?,
 ) {
 
     private val isAmountDynamic = amount.toIntOrNull() == null
@@ -58,6 +61,22 @@ class Meta(
 
     fun hasAmount(): Boolean {
         return amount.isNotEmpty() || amount.toIntOrNull() != null
+    }
+
+    fun tooltipStyle(session: MenuSession, builder: ItemBuilder) {
+        if (tooltip.isNullOrEmpty()) {
+            return
+        }
+        val key = session.placeholderPlayer.evalScript(tooltip).asString().let { NamespacedKey.fromString(it) }
+        builder.tooltipStyle = key
+    }
+
+    fun itemModel(session: MenuSession, builder: ItemBuilder) {
+        if (itemModel.isNullOrEmpty()) {
+            return
+        }
+        val key = session.placeholderPlayer.evalScript(itemModel).asString().let { NamespacedKey.fromString(it) }
+        builder.itemModel = key
     }
 
 }

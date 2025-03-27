@@ -59,7 +59,7 @@ subprojects {
             )
         }
         version {
-            taboolib = "6.2.3-20d868d"
+            taboolib = "6.2.3-d89e06f"
             coroutines = null
         }
     }

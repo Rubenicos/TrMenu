@@ -30,11 +30,13 @@ taboolib {
             name("Nexo").with("bukkit").optional(true)
             name("NBTAPI").with("bukkit").optional(true).loadafter(true)
             name("TrMenu-Graal").with("bukkit").optional(true)
+            name("AzureFlow").with("bukkit").optional(true)
+            name("CraftEngine").with("bukkit").optional(true)
         }
     }
     relocate("trplugins.menu", group.toString())
-    relocate("ink.ptms.um","${group}.um")
-    relocate("top.maplex.arim","${group}.arim")
+    relocate("ink.ptms.um", "${group}.um")
+    relocate("top.maplex.arim", "${group}.arim")
 }
 
 repositories {
