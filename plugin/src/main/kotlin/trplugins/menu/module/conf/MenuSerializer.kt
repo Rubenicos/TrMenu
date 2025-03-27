@@ -349,6 +349,12 @@ object MenuSerializer : ISerializer {
             } else {
                 ItemTag().also { Property.ICON_DISPLAY_NBT.ofMap(display).forEach { (key, value) -> it[key] = ItemTagData.toNBT(value) } }
             }
+            val tooltipStyle = if (inherit.contains(Property.ICON_DISPLAY_TOOLTIP)) {
+                def!!.display.meta.tooltip
+            } else Property.ICON_DISPLAY_TOOLTIP.ofString(display, "")
+            val itemModel = if (inherit.contains(Property.ICON_DISPLAY_ITEM_MODEL)) {
+                def!!.display.meta.itemModel
+            } else Property.ICON_DISPLAY_ITEM_MODEL.ofString(display, "")
 
             // only for the subIcon
             val priority = Property.PRIORITY.ofInt(it, order)
@@ -385,7 +391,7 @@ object MenuSerializer : ISerializer {
                 if (def != null && inherit.contains(Property.ICON_DISPLAY_LORE) && lore.isEmpty()) def.display.lore
                 else CycleList(lore.map { Lore(line(it)) }),
                 // 图标附加属性
-                Meta(amount, shiny, flags, nbt)
+                Meta(amount, shiny, flags, nbt, tooltipStyle, itemModel)
             )
 
             // i18n

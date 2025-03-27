@@ -87,6 +87,8 @@ open class Item(
             }
             meta.flags(this)
             meta.shiny(session, this)
+            meta.tooltipStyle(session, this)
+            meta.itemModel(session, this)
 
             if (meta.hasAmount()) this.amount = meta.amount(session)
         }
