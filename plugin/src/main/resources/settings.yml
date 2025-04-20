@@ -49,6 +49,9 @@ Database:
     # UUID, USERNAME
     Player: USERNAME
 
+  # 进服延迟加载数据
+  Join_Load_Delay: 20
+
 Loader:
   Listen-Files: true
   Menu-Files:

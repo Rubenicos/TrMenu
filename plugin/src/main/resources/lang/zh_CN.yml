@@ -17,7 +17,7 @@ Menu-Loader-Loading: '&8[&3Tr&bMenu&8] &6线程 &8| &3正在载入菜单...'
 Menu-Loader-Failed: '&8[&3Tr&bMenu&8] &c错误 &8| &4载入菜单 &c{0} &4过程中发生错误! 定位于: {1}'
 Menu-Loader-Reloaded: '&8[&3Tr&bMenu&8] &a良好 &8| &7自动重新载入菜单 &f{0} &8({1}ms)'
 Menu-Expansions-Header:
-  - '&8[&3Tr&bMenu&8] &7你必须安装 PAPI &f{0} &7拓展以使用此菜单.'
+  - '&8[&3Tr&bMenu&8] &7你必须安装 PAPI &f{0} &7个拓展以使用此菜单.'
   - type: JSON
     text: '&7请在安装后 [&3&n点击重载] &7拓展'
     args:
