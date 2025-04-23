@@ -1,19 +1,22 @@
 package trplugins.menu.util
 
 import taboolib.common.io.runningClasses
+import taboolib.common.platform.function.console
 import taboolib.library.reflex.Reflex.Companion.getProperty
 import taboolib.module.configuration.Configuration
-import java.lang.reflect.Modifier
+import taboolib.module.lang.sendErrorMessage
 
 /**
  * @author Arasple
  * @date 2021/2/19 22:40
  */
 fun Throwable.print(title: String) {
-    println("§c[TrMenu] §8$title")
-    println("         §8${localizedMessage}")
+    console().sendErrorMessage("&8$title")
+//    println("§c[TrMenu] §8$title")
+    console().sendErrorMessage("         §8${localizedMessage}")
+//    println("         §8${localizedMessage}")
     stackTrace.forEach {
-        println("         §8$it")
+        console().sendErrorMessage("         §8$it")
     }
 }
 

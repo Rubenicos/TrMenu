@@ -7,6 +7,7 @@ import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.Schedule
+import taboolib.common.platform.function.console
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import trplugins.menu.TrMenu
@@ -69,7 +70,7 @@ object Metadata {
                 }
                 dataMap.data.forEach { (key, value) -> it["TrMenu.Data.$key"] = value }
             } else {
-                println("NullData: ${player.name}")
+                console().sendMessage("NullData: ${player.name}")
             }
         }
         database.push(player)

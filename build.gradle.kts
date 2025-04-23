@@ -57,7 +57,7 @@ subprojects {
                 MinecraftChat,
                 XSeries
             )
-            repoTabooLib = "http://repo.aeoliancloud.com/repository/releases"
+            repoTabooLib = "https://repo.aeoliancloud.com/repository/releases"
         }
         version {
             taboolib = "6.2.3-903b04f"
@@ -66,7 +66,7 @@ subprojects {
     }
 
     repositories {
-        maven("http://repo.aeoliancloud.com/repository/releases") { isAllowInsecureProtocol = true }
+        maven("https://repo.aeoliancloud.com/repository/releases") { isAllowInsecureProtocol = true }
         mavenCentral()
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
         maven("http://sacredcraft.cn:8081/repository/releases") { isAllowInsecureProtocol = true }

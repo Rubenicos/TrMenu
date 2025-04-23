@@ -2,6 +2,7 @@ package trplugins.menu.api
 
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.adaptPlayer
+import taboolib.common.platform.function.console
 import taboolib.library.kether.LocalizedException
 import taboolib.module.kether.KetherShell
 import taboolib.module.kether.ScriptOptions
@@ -44,9 +45,9 @@ object TrMenuAPI {
                 }.build()
                 )
         } catch (e: LocalizedException) {
-            println("§c[TrMenu] §8Unexpected exception while parsing kether shell:")
+            console().sendMessage("§c[TrMenu] §8Unexpected exception while parsing kether shell:")
             e.localizedMessage.split("\n").forEach {
-                println("         §8$it")
+                console().sendMessage("         §8$it")
             }
             CompletableFuture.completedFuture(false)
         }
@@ -57,8 +58,8 @@ object TrMenuAPI {
         return try {
             EvalResult(eval(player, script).get(timeout, TimeUnit.MILLISECONDS))
         } catch (e: TimeoutException) {
-            println("§c[TrMenu] §8Timeout while parsing kether shell:")
-            e.localizedMessage?.split("\n")?.forEach { println("         §8$it") }
+            console().sendMessage("§c[TrMenu] §8Timeout while parsing kether shell:")
+            e.localizedMessage?.split("\n")?.forEach { console().sendMessage("         §8$it") }
             EvalResult.FALSE
         }
     }
