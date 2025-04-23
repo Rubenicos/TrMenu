@@ -3,6 +3,7 @@ package trplugins.menu.module.display
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.adaptPlayer
+import taboolib.common.platform.function.console
 import taboolib.common.platform.function.pluginId
 import taboolib.common.platform.function.submit
 import taboolib.module.configuration.Configuration
@@ -208,7 +209,7 @@ class Menu(
                         session.activeIcons.add(it)
                     } catch (e: Throwable) {
                         e.printStackTrace()
-                        println("ICON: ${it.id}")
+                        console().sendMessage("ICON: ${it.id}")
                     }
                 }
             }

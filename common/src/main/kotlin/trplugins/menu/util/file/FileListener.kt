@@ -1,6 +1,8 @@
 package trplugins.menu.util.file
 
+import taboolib.common.platform.function.console
 import taboolib.common5.FileWatcher
+import taboolib.module.lang.sendErrorMessage
 import java.io.File
 import java.util.function.Consumer
 
@@ -33,7 +35,8 @@ object FileListener {
             remove
         }
         if (count > 0) {
-            println("DEBUG: CLEARED $count unused listeners")
+            console().sendMessage("DEBUG: CLEARED $count unused listeners")
+//            println("DEBUG: CLEARED $count unused listeners")
         }
     }
 

@@ -1,13 +1,13 @@
 package trplugins.menu.util.net
 
 import taboolib.common.PrimitiveIO
+import taboolib.common.platform.function.console
 import trplugins.menu.util.parseJson
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.TimeZone
+import java.util.*
 
 /**
  * @author Arasple
@@ -20,9 +20,9 @@ object PasteGG {
     @JvmStatic
     fun main(args: Array<String>) {
         paste("Test", "Description", "Test Content", false, 1000 * 60, {
-            println("Success: $it")
+            console().sendMessage("Success: $it")
         }, {
-            println("Failed")
+            console().sendMessage("Failed")
         })
     }
 
