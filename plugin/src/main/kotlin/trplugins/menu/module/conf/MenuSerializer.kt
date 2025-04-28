@@ -355,6 +355,9 @@ object MenuSerializer : ISerializer {
             val itemModel = if (inherit.contains(Property.ICON_DISPLAY_ITEM_MODEL)) {
                 def!!.display.meta.itemModel
             } else Property.ICON_DISPLAY_ITEM_MODEL.ofString(display, "")
+            val hideTooltip = if (inherit.contains(Property.ICON_DISPLAY_HIDE_TOOLTIP)) {
+                def!!.display.meta.hideTooltip
+            } else Property.ICON_DISPLAY_HIDE_TOOLTIP.ofString(display, "false")
 
             // only for the subIcon
             val priority = Property.PRIORITY.ofInt(it, order)
@@ -391,7 +394,7 @@ object MenuSerializer : ISerializer {
                 if (def != null && inherit.contains(Property.ICON_DISPLAY_LORE) && lore.isEmpty()) def.display.lore
                 else CycleList(lore.map { Lore(line(it)) }),
                 // 图标附加属性
-                Meta(amount, shiny, flags, nbt, tooltipStyle, itemModel)
+                Meta(amount, shiny, flags, nbt, tooltipStyle, itemModel, hideTooltip)
             )
 
             // i18n

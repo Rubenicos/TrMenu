@@ -23,12 +23,14 @@ class Meta(
     val nbt: ItemTag?,
     val tooltip: String?,
     val itemModel: String?,
+    val hideTooltip: String,
 ) {
 
     private val isAmountDynamic = amount.toIntOrNull() == null
     private val isShinyDynamic = !shiny.matches(Regexs.BOOLEAN)
+    private val isHideTooltipDynamic = !hideTooltip.matches(Regexs.BOOLEAN)
     private val isNBTDynamic = nbt != null && Regexs.containsPlaceholder(nbt.toJsonSimplified())
-    val isDynamic = isAmountDynamic || isNBTDynamic || isShinyDynamic
+    val isDynamic = isAmountDynamic || isNBTDynamic || isShinyDynamic || isHideTooltipDynamic
 
     fun amount(session: MenuSession): Int {
         return (if (isAmountDynamic) session.parse(amount) else amount).toDoubleOrNull()?.toInt() ?: 1
@@ -77,6 +79,12 @@ class Meta(
         }
         val key = session.placeholderPlayer.evalScript(itemModel).asString().let { NamespacedKey.fromString(it) }
         builder.itemModel = key
+    }
+
+    fun hideTooltip(session: MenuSession, builder: ItemBuilder) {
+        if ((hideTooltip.toBoolean()) || (isHideTooltipDynamic && session.placeholderPlayer.evalScript(hideTooltip).asBoolean())) {
+            builder.isHideTooltip = true
+        }
     }
 
 }
