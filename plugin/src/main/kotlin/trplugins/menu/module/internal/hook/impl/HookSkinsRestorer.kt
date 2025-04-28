@@ -3,6 +3,7 @@ package trplugins.menu.module.internal.hook.impl
 import net.skinsrestorer.api.SkinsRestorer
 import net.skinsrestorer.api.SkinsRestorerProvider
 import trplugins.menu.module.internal.hook.HookAbstract
+import trplugins.menu.module.internal.script.Bindings
 
 /**
  * @author Arasple
@@ -10,8 +11,10 @@ import trplugins.menu.module.internal.hook.HookAbstract
  */
 class HookSkinsRestorer : HookAbstract() {
 
+
+
     private val skinsRestorer: SkinsRestorer? =
-        if (isHooked) {
+        if (plugin != null && plugin!!.isEnabled) {
             runCatching { SkinsRestorerProvider.get() }.getOrNull()
         } else {
             null
@@ -20,6 +23,11 @@ class HookSkinsRestorer : HookAbstract() {
             if (field == null) reportAbuse()
             return field
         }
+
+    override val isHooked by lazy {
+        if (Bindings.exportHook) bindingScript()
+        return@lazy skinsRestorer != null
+    }
 
     fun getPlayerSkinTexture(name: String): String? {
         skinsRestorer?.let {
