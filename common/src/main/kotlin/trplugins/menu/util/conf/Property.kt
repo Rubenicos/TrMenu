@@ -239,6 +239,11 @@ enum class Property(val default: String, val regex: Regex) {
     ICON_DISPLAY_ITEM_MODEL("model", "(item)?_?model"),
 
     /**
+     * 菜单图标 - ItemModel
+     */
+    ICON_DISPLAY_HIDE_TOOLTIP("hide_tooltip", "hide_?tool(tip)?"),
+
+    /**
      * 菜单图标 - 子图标
      */
     ICON_SUB_ICONS("icons", "(sub|priority)?icons?"),

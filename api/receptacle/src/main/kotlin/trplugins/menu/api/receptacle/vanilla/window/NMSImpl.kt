@@ -191,7 +191,7 @@ class NMSImpl : NMS() {
         }
     }
 
-    private fun toNMSCopy(itemStack: ItemStack?): net.minecraft.server.v1_16_R3.ItemStack? {
+    override fun toNMSCopy(itemStack: ItemStack?): net.minecraft.server.v1_16_R3.ItemStack? {
         return if (itemStack.isAir()) emptyItemStack else CraftItemStack.asNMSCopy(itemStack)
     }
 
