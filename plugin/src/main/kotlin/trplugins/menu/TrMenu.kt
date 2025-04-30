@@ -5,7 +5,6 @@ import taboolib.common.platform.Plugin
 import taboolib.common.platform.function.console
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
-import taboolib.module.kether.Kether
 import taboolib.module.lang.Language
 import taboolib.module.lang.sendLang
 import taboolib.platform.BukkitPlugin
@@ -86,7 +85,6 @@ object TrMenu : Plugin() {
         Shortcuts.Type.load()
         RegisterCommands.load()
         Bindings.load()
-        Kether.isAllowToleranceParser = SETTINGS.getBoolean("Action.Kether.Allow-Tolerance-Parser", false)
         Tell.useComponent = SETTINGS.getBoolean("Action.Using-Component", true)
         PlatformProvider.compute()
         NMS.javaStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Java", false)

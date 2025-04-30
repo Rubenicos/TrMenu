@@ -18,11 +18,9 @@ class DelGlobalData(handle: ActionHandle) : ActionBase(handle) {
     override val regex = "(remove|rem|del)-?(global|g)-?datas?".toRegex()
 
     override fun onExecute(contents: ActionContents, player: ProxyPlayer, placeholderPlayer: ProxyPlayer) {
-        val data = Metadata.globalData
-
         contents.stringContent().parseContentSplited(placeholderPlayer, ";").forEach { it ->
             val regex = Regex(it)
-            data.getKeys(true).filter { it.matches(regex) }.forEach { data[it] = null }
+            Metadata.getGlobalDataKeys().filter { it.matches(regex) }.forEach { Metadata.setGlobalData(it, null)}
         }
     }
 }

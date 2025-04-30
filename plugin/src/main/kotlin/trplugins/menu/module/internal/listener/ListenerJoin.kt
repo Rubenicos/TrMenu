@@ -17,7 +17,7 @@ object ListenerJoin {
     fun onJoin(e: PlayerJoinEvent) {
         val player = e.player
 
-        submit(async = true, delay = TrMenu.SETTINGS.getLong("Database.Join_Load_Delay", 20)) {
+        submit(async = true, delay = TrMenu.SETTINGS.getLong("Database.Join-Load-Delay", 40)) {
             // 缓存玩家头颅备用
             Heads.getHead(player.name)
             // 加载 Metadata - Data 数据
