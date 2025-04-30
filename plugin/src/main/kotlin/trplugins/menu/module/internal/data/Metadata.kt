@@ -7,7 +7,7 @@ import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.Schedule
-import taboolib.common.platform.function.console
+import taboolib.common.platform.function.submitAsync
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import trplugins.menu.TrMenu
@@ -16,6 +16,9 @@ import trplugins.menu.api.event.CustomDatabaseEvent
 import trplugins.menu.module.display.MenuSession
 import trplugins.menu.module.internal.database.DatabaseSQL
 import trplugins.menu.module.internal.database.DatabaseSQLite
+import trplugins.menu.module.internal.database.GlobalDataDao
+import trplugins.menu.module.internal.database.MetaDataDao
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @author Arasple
@@ -31,9 +34,14 @@ object Metadata {
 
     internal val meta = mutableMapOf<String, DataMap>()
     internal val data = mutableMapOf<String, DataMap>()
+    internal val global = ConcurrentHashMap<String, Any?>()
 
     @Config("data/globalData.yml")
     lateinit var globalData: Configuration
+
+    val isUseLegacy by lazy {
+        SETTINGS.getBoolean("Database.Use-Legacy-Database", def = false)
+    }
 
     // Copy in the Adyeshach
     val database by lazy {
@@ -49,10 +57,20 @@ object Metadata {
         }
     }
 
-//    @TFunction.Cancel 暂不处理
+    @Awake(LifeCycle.ENABLE)
+    fun init() {
+        submitAsync(period = SETTINGS.getLong("Database.Global-Data-Sync")) {
+            loadGlobalData()
+        }
+    }
+
+    //    @TFunction.Cancel 暂不处理
     @Awake(LifeCycle.DISABLE)
     @Schedule(delay = 100, period = 20 * 30, async = true)
     fun save() {
+        if (!isUseLegacy) {
+            return
+        }
         data.forEach { (playerName, dataMap) ->
             val player = Bukkit.getPlayerExact(playerName) ?: return@forEach
             pushData(player, dataMap)
@@ -60,20 +78,26 @@ object Metadata {
         globalData.saveToFile()
     }
 
+    fun saveData(player: Player, key: String) {
+        MetaDataDao.door.update(DataEntity(player, key, getData(player)[key]?.toString() ?: ""))
+    }
+
     fun pushData(player: Player, dataMap: DataMap = getData(player)) {
-        getLocalePlayer(player).let {
-            if (it != null) {
+        if (isUseLegacy) {
+            getLocalePlayer(player).let {
                 it.getConfigurationSection("TrMenu.Data")?.getKeys(true)?.forEach { key ->
                     if (!dataMap.data.containsKey(key)) {
                         it["TrMenu.Data.$key"] = null
                     }
                 }
                 dataMap.data.forEach { (key, value) -> it["TrMenu.Data.$key"] = value }
-            } else {
-                console().sendMessage("NullData: ${player.name}")
+            }
+            database.push(player)
+        } else {
+            dataMap.data.forEach { (key, value) ->
+                MetaDataDao.door.update(DataEntity(player, key, value?.toString() ?: ""))
             }
         }
-        database.push(player)
     }
 
     private fun getLocalePlayer(player: Player): Configuration {
@@ -83,8 +107,14 @@ object Metadata {
     fun loadData(player: Player) {
         val map: MutableMap<String, Any?> = mutableMapOf()
 
-        getLocalePlayer(player).getConfigurationSection("TrMenu.Data")?.let { section ->
-            section.getKeys(true).forEach { key -> map[key] = section[key] }
+        if (isUseLegacy) {
+            getLocalePlayer(player).getConfigurationSection("TrMenu.Data")?.let { section ->
+                section.getKeys(true).forEach { key -> map[key] = section[key] }
+            }
+        } else {
+            MetaDataDao.door.get(player.uniqueId).forEach {
+                map[it.key] = it.data
+            }
         }
 
         data[player.name] = DataMap(map)
@@ -96,6 +126,32 @@ object Metadata {
 
     fun <T> getMeta(target: T): DataMap {
         return meta.computeIfAbsent(getPlayerName(target)) { DataMap() }
+    }
+
+    fun loadGlobalData() {
+        if (isUseLegacy) {
+            return
+        }
+        GlobalDataDao.door.get().forEach {
+            global[it.key] = it.data
+        }
+    }
+
+    fun getGlobalData(key: String): Any? {
+        return if (isUseLegacy) globalData[key] else global[key]
+    }
+
+    fun getGlobalDataKeys(): Set<String> {
+        return if (isUseLegacy) globalData.getKeys(true) else global.keys
+    }
+
+    fun setGlobalData(key: String, value: Any?) {
+        if (isUseLegacy) {
+            globalData[key] = value
+        } else {
+            global[key] = value
+            GlobalDataDao.door.update(key, value)
+        }
     }
 
     fun setBukkitMeta(player: Player, key: String, value: String = "") {
@@ -113,7 +169,7 @@ object Metadata {
             is Player -> target.name
             is ProxyPlayer -> target.name
             is MenuSession -> target.placeholderPlayer.name
-            else -> throw Exception("?????")
+            else -> throw Exception("Unknown target type.")
         }
     }
 

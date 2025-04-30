@@ -55,7 +55,8 @@ subprojects {
                 Kether,
                 Metrics,
                 MinecraftChat,
-                XSeries
+                XSeries,
+                PtcObject
             )
             repoTabooLib = "https://repo.aeoliancloud.com/repository/releases"
         }

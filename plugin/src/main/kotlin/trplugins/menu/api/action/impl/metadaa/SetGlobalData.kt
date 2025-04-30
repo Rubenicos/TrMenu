@@ -24,7 +24,7 @@ class SetGlobalData(handle: ActionHandle) : ActionBase(handle) {
                 val key = split[0]
                 val value = split[1]
 
-                Metadata.globalData[key] = value
+                Metadata.setGlobalData(key, value)
             }
         }
     }

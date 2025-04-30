@@ -22,18 +22,30 @@ class KetherData(val type: EditType, private val source: ParsedAction<*>, privat
     override fun process(context: QuestContext.Frame): CompletableFuture<Any> {
         val viewer = context.viewer()
 
-        return context.newFrame(source).run<String>().thenApply {
+        return context.newFrame(source).run<String>().thenApply { key ->
             when (type) {
-                DEL -> Metadata.getData(viewer).remove(it)
-                SET -> {
-                    apply?.let { it1 ->
-                        context.newFrame(it1).run<String>().thenApply { apply ->
-                            Metadata.getData(viewer)[it] = apply
+                DEL -> {
+                    Metadata.getData(viewer).remove(key).also {
+                        if (!Metadata.isUseLegacy) {
+                            Metadata.saveData(viewer, key)
                         }
                     }
                 }
-                GET -> Metadata.getData(viewer)[it]
-                HAS -> Metadata.getData(viewer).data.containsKey(it)
+
+                SET -> {
+                    apply?.let { it1 ->
+                        context.newFrame(it1).run<String>().thenApply { apply ->
+                            Metadata.getData(viewer)[key] = apply.also {
+                                if (!Metadata.isUseLegacy) {
+                                    Metadata.saveData(viewer, key)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                GET -> Metadata.getData(viewer)[key]
+                HAS -> Metadata.getData(viewer).data.containsKey(key)
             }
 
         }

@@ -31,26 +31,40 @@ Language:
     en_nz: 'en_US'
 
 Database:
+  # 使用旧版数据库储存
+  Use-Legacy-Database: false
+
   # Local: SQLITE
-  # External: SQL, MONGODB
+  # External: SQL
   Method: SQLITE
   Type:
     SQLite:
       file-name: data
-      table: npc
     SQL:
       host: localhost
       port: 3306
       user: root
       password: root
       database: test
-      table: trmenu_user_data
   Index:
     # UUID, USERNAME
     Player: USERNAME
 
+  # 新版数据库模块
+  SQL:
+    # 启用 MYSQL, 否则使用 SQLITE
+    enable: false
+    host: localhost
+    port: 3306
+    user: root
+    password: root
+    database: minecraft
+    prefix: trmenu
+
   # 进服延迟加载数据
-  Join_Load_Delay: 20
+  Join-Load-Delay: 40
+  # 全局数据跨服同步间隔
+  Global-Data-Sync: 200
 
 Loader:
   Listen-Files: true
@@ -73,8 +87,6 @@ Action:
     Cancel-Words:
       - 'cancel|quit|end'
       - 'q'
-  Kether:
-    Allow-Tolerance-Parser: true
 
 
 Shortcuts:
