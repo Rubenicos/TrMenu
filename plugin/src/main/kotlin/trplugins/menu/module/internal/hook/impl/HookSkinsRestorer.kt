@@ -3,15 +3,12 @@ package trplugins.menu.module.internal.hook.impl
 import net.skinsrestorer.api.SkinsRestorer
 import net.skinsrestorer.api.SkinsRestorerProvider
 import trplugins.menu.module.internal.hook.HookAbstract
-import trplugins.menu.module.internal.script.Bindings
 
 /**
  * @author Arasple
  * @date 2021/1/27 14:12
  */
 class HookSkinsRestorer : HookAbstract() {
-
-
 
     private val skinsRestorer: SkinsRestorer? =
         if (plugin != null && plugin!!.isEnabled) {
@@ -25,7 +22,7 @@ class HookSkinsRestorer : HookAbstract() {
         }
 
     override val isHooked by lazy {
-        if (Bindings.exportHook) bindingScript()
+        if (plugin?.isEnabled == false) return@lazy false
         return@lazy skinsRestorer != null
     }
 

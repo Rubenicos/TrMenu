@@ -79,7 +79,9 @@ object Metadata {
     }
 
     fun saveData(player: Player, key: String) {
-        MetaDataDao.door.update(DataEntity(player, key, getData(player)[key]?.toString() ?: ""))
+        submitAsync {
+            MetaDataDao.door.update(DataEntity(player, key, getData(player)[key]?.toString() ?: ""))
+        }
     }
 
     fun pushData(player: Player, dataMap: DataMap = getData(player)) {
@@ -150,7 +152,9 @@ object Metadata {
             globalData[key] = value
         } else {
             global[key] = value
-            GlobalDataDao.door.update(key, value)
+            submitAsync {
+                GlobalDataDao.door.update(key, value)
+            }
         }
     }
 

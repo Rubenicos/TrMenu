@@ -5,7 +5,7 @@ plugins {
     java
     idea
     kotlin("jvm") version "2.1.0"
-    id("io.izzel.taboolib") version "2.0.22"
+    id("io.izzel.taboolib") version "2.0.23"
 }
 
 // 这段。一言难尽，但我不想动 (依托)
