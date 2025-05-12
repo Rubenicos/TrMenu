@@ -366,9 +366,26 @@ class Assist {
      * NBT
      */
 
+    /**
+     * @param isCustom 仅针对 1.20.5+, 是否读取为 CUSTOM_DATA 的 DataComponentType
+     */
+    fun getNBT(itemStack: ItemStack, string: String, isCustom: Boolean = true): String? {
+        val itemTag = itemStack.getItemTag(isCustom)
+        return itemTag[string]?.asString()
+    }
+
     fun getNBT(itemStack: ItemStack, string: String): String? {
         val itemTag = itemStack.getItemTag()
         return itemTag[string]?.asString()
+    }
+
+    /**
+     * @param isCustom 仅针对 1.20.5+, 是否读取为 CUSTOM_DATA 的 DataComponentType
+     */
+    fun setNBT(itemStack: ItemStack, key: String, value: String, isCustom: Boolean = true): ItemStack {
+        val itemTag = itemStack.getItemTag(isCustom)
+        itemTag[key] = ItemTagData(value)
+        return itemStack.also { itemTag.saveTo(it, isCustom) }
     }
 
     fun setNBT(itemStack: ItemStack, key: String, value: String): ItemStack {
