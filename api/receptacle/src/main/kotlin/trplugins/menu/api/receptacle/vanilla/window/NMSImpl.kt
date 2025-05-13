@@ -1,5 +1,6 @@
 package trplugins.menu.api.receptacle.vanilla.window
 
+import net.minecraft.network.protocol.game.ClientboundSetCursorItemPacket
 import net.minecraft.server.v1_16_R3.*
 import org.bukkit.Material
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack
@@ -161,6 +162,13 @@ class NMSImpl : NMS() {
                     "slot" to slot,
                     "itemStack" to toNMSCopy(itemStack)
                 )
+                kotlin.runCatching {
+                    sendPacket(
+                        player,
+                        ClientboundSetCursorItemPacket::class.java.unsafeInstance(),
+                        "contents" to toNMSCopy(ItemStack(Material.AIR))
+                    )
+                }
             }
             else -> {
                 player.sendPacket(PacketPlayOutSetSlot(windowId, slot, toNMSCopy(itemStack)))
