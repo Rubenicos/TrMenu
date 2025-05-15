@@ -11,5 +11,10 @@ data class DataEntity(
     @Length(-1)
     val data: String
 ) {
-    constructor(player: Player, key: String, data: String) : this(player.uniqueId, key, data)
+
+    companion object {
+        fun constructor(player: Player, key: String, data: String): DataEntity {
+            return DataEntity(player.uniqueId, key, data)
+        }
+    }
 }
