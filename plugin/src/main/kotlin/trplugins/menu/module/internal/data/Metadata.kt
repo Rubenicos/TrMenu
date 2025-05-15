@@ -80,7 +80,7 @@ object Metadata {
 
     fun saveData(player: Player, key: String) {
         submitAsync {
-            MetaDataDao.door.update(DataEntity(player, key, getData(player)[key]?.toString() ?: ""))
+            MetaDataDao.door.update(DataEntity.constructor(player, key, getData(player)[key]?.toString() ?: ""))
         }
     }
 
@@ -97,7 +97,7 @@ object Metadata {
             database.push(player)
         } else {
             dataMap.data.forEach { (key, value) ->
-                MetaDataDao.door.update(DataEntity(player, key, value?.toString() ?: ""))
+                MetaDataDao.door.update(DataEntity.constructor(player, key, value?.toString() ?: ""))
             }
         }
     }

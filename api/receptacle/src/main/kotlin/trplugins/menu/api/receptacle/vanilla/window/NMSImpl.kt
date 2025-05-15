@@ -166,7 +166,7 @@ class NMSImpl : NMS() {
                     sendPacket(
                         player,
                         ClientboundSetCursorItemPacket::class.java.unsafeInstance(),
-                        "contents" to toNMSCopy(ItemStack(Material.AIR))
+                        "contents" to toNMSCopy(null)
                     )
                 }
             }

@@ -1,4 +1,4 @@
-    repositories {
+repositories {
     maven("https://repo.aeoliancloud.com/repository/releases") { isAllowInsecureProtocol = true }
 }
 
