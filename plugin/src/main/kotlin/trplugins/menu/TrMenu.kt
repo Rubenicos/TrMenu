@@ -10,6 +10,7 @@ import taboolib.module.lang.Language
 import taboolib.module.lang.sendLang
 import taboolib.platform.util.bukkitPlugin
 import trplugins.menu.api.action.ActionHandle
+import trplugins.menu.api.action.impl.menu.SetTitle
 import trplugins.menu.api.action.impl.send.Tell
 import trplugins.menu.api.receptacle.provider.PlatformProvider
 import trplugins.menu.api.receptacle.vanilla.window.NMS
@@ -91,6 +92,7 @@ object TrMenu : Plugin() {
         RegisterCommands.load()
         Bindings.load()
         Tell.useComponent = SETTINGS.getBoolean("Action.Using-Component", true)
+        SetTitle.useComponent = SETTINGS.getBoolean("Action.Title-Using-Component", false)
         PlatformProvider.compute()
         NMS.javaStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Java", false)
         NMS.bedrockStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Bedrock", false)

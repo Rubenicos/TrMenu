@@ -107,7 +107,7 @@ class NMSImpl : NMS() {
                     PacketPlayOutOpenWindow::class.java.unsafeInstance(),
                     "containerId" to windowId,
                     "type" to Containers::class.java.getProperty(type.vanillaId, true),
-                    "title" to CraftChatMessage.fromStringOrNull(title)
+                    "title" to CraftChatMessage.fromJSONOrString(title)
                 )
             }
             MinecraftVersion.isUniversal -> {
@@ -116,7 +116,7 @@ class NMSImpl : NMS() {
                     PacketPlayOutOpenWindow::class.java.unsafeInstance(),
                     "containerId" to windowId,
                     "type" to type.serialId,
-                    "title" to CraftChatMessage.fromStringOrNull(title)
+                    "title" to CraftChatMessage.fromJSONOrString(title)
                 )
             }
             version >= 11400 -> {
@@ -162,17 +162,19 @@ class NMSImpl : NMS() {
                     "slot" to slot,
                     "itemStack" to toNMSCopy(itemStack)
                 )
-                kotlin.runCatching {
-                    sendPacket(
-                        player,
-                        ClientboundSetCursorItemPacket::class.java.unsafeInstance(),
-                        "contents" to toNMSCopy(null)
-                    )
-                }
             }
             else -> {
                 player.sendPacket(PacketPlayOutSetSlot(windowId, slot, toNMSCopy(itemStack)))
             }
+        }
+        if (version >= 12104) {
+            try {
+                sendPacket(
+                    player,
+                    ClientboundSetCursorItemPacket::class.java.unsafeInstance(),
+                    "contents" to toNMSCopy(null)
+                )
+            } catch (_: Throwable) {}
         }
     }
 
