@@ -3,6 +3,7 @@ package trplugins.menu.api.receptacle.vanilla.window
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import taboolib.common.platform.function.submit
+import taboolib.module.chat.component
 import taboolib.module.nms.nmsProxy
 import trplugins.menu.api.receptacle.Receptacle
 import trplugins.menu.api.receptacle.ReceptacleInteractEvent

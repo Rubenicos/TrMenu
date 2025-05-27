@@ -83,6 +83,7 @@ Menu:
 
 Action:
   Using-Component: true
+  Title-Using-Component: true
   Inputer:
     Cancel-Words:
       - 'cancel|quit|end'
