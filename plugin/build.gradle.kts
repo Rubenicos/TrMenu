@@ -32,6 +32,7 @@ taboolib {
             name("TrMenu-Graal").with("bukkit").optional(true)
             name("AzureFlow").with("bukkit").optional(true)
             name("CraftEngine").with("bukkit").optional(true)
+            name("SX-Item").with("bukkit").optional(true)
         }
     }
     relocate("trplugins.menu", group.toString())
