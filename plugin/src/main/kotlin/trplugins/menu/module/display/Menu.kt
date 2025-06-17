@@ -12,7 +12,6 @@ import taboolib.module.lang.Type
 import taboolib.platform.util.cancelNextChat
 import trplugins.menu.TrMenu
 import trplugins.menu.api.action.impl.menu.SetTitle
-import trplugins.menu.api.action.impl.send.Tell
 import trplugins.menu.api.event.MenuOpenEvent
 import trplugins.menu.api.event.MenuPageChangeEvent
 import trplugins.menu.api.receptacle.provider.PlatformProvider
@@ -190,18 +189,18 @@ class Menu(
     private fun loadTitle(session: MenuSession) {
         val title = settings.title(session)
         session.receptacle?.title(title.next(session.id)?.let {
-            val title = session.parse(it)
+            val parseTitle = session.parse(it)
             if (SetTitle.useComponent) {
-                title.component().build().toRawMessage()
-            } else title
+                parseTitle.component().build().toRawMessage()
+            } else parseTitle
         } ?: pluginId, update = false)
 
         val setTitle = {
             session.receptacle?.title(title.next(session.id)?.let {
-                val title = session.parse(it)
+                val parseTitle = session.parse(it)
                 if (SetTitle.useComponent) {
-                    title.component().build().toRawMessage()
-                } else title
+                    parseTitle.component().build().toRawMessage()
+                } else parseTitle
             } ?: pluginId)
         }
 
