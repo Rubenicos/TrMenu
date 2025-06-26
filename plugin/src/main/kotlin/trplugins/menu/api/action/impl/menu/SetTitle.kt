@@ -5,7 +5,6 @@ import taboolib.module.chat.component
 import trplugins.menu.api.action.ActionHandle
 import trplugins.menu.api.action.base.ActionBase
 import trplugins.menu.api.action.base.ActionContents
-import trplugins.menu.api.action.impl.send.Tell
 import trplugins.menu.module.display.session
 
 /**

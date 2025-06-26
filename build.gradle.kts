@@ -61,12 +61,13 @@ subprojects {
             repoTabooLib = "https://repo.aeoliancloud.com/repository/releases"
         }
         version {
-            taboolib = "6.2.3-ad29825"
+            taboolib = "6.2.3-052537b"
             coroutines = null
         }
     }
 
     repositories {
+        // 国内防屏蔽服务器
         maven("https://repo.aeoliancloud.com/repository/releases") { isAllowInsecureProtocol = true }
         mavenCentral()
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
