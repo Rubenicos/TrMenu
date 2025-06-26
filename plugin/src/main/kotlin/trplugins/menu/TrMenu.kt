@@ -28,6 +28,7 @@ import trplugins.menu.module.internal.script.Bindings
 import trplugins.menu.module.internal.script.evalScript
 import trplugins.menu.module.internal.service.RegisterCommands
 import trplugins.menu.module.internal.service.Shortcuts
+import trplugins.menu.util.bukkit.Heads
 
 /**
  * @author Arasple
@@ -97,6 +98,8 @@ object TrMenu : Plugin() {
         NMS.javaStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Java", false)
         NMS.bedrockStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Bedrock", false)
         NMS.createIdPacketInventory = SETTINGS.getBoolean("Options.Packet-Inventory.Create-Id", false)
+        Heads.headConnectTimeout = SETTINGS.getInt("Menu.Icon.Item.Head-Connect-Timeout", 500)
+        Heads.headReadTimeout = SETTINGS.getInt("Menu.Icon.Item.Head-Read-Timeout", 2500)
     }
 
 }

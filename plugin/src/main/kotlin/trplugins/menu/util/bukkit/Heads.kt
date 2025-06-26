@@ -29,6 +29,9 @@ object Heads {
     private const val USER_API = "https://api.mojang.com/users/profiles/minecraft/"
     private const val SESSION_API = "https://sessionserver.mojang.com/session/minecraft/profile/"
 
+    var headConnectTimeout: Int = 500
+    var headReadTimeout: Int = 2500
+
     private val JSON_PARSER = JsonParser()
     private val DEFAULT_HEAD = XMaterial.PLAYER_HEAD.parseItem()!!.apply {
         if (runCatching { Material.PLAYER_HEAD }.isFailure) {
@@ -150,8 +153,8 @@ object Heads {
         try {
             val con = URL(url).openConnection()
             // Java 8 require user agent
-            con.connectTimeout = 500
-            con.readTimeout = 2500
+            con.connectTimeout = headConnectTimeout
+            con.readTimeout = headReadTimeout
             con.addRequestProperty("User-Agent", "Mozilla/5.0")
             con.getInputStream().use { `in` ->
                 BufferedReader(InputStreamReader(`in`)).use { reader ->

@@ -80,6 +80,8 @@ Menu:
       Default-Name-Color: "&7"
       Default-Lore-Color: "&7"
       Pre-Color: false
+      Head-Connect-Timeout: 500
+      Head-Read-Timeout: 2500
 
 Action:
   Using-Component: true
