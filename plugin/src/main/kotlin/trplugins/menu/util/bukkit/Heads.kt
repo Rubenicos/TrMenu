@@ -150,6 +150,8 @@ object Heads {
         try {
             val con = URL(url).openConnection()
             // Java 8 require user agent
+            con.connectTimeout = 500
+            con.readTimeout = 2500
             con.addRequestProperty("User-Agent", "Mozilla/5.0")
             con.getInputStream().use { `in` ->
                 BufferedReader(InputStreamReader(`in`)).use { reader ->
