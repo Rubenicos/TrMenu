@@ -23,7 +23,7 @@ class Command(handle: ActionHandle) : ActionBase(handle) {
         placeholderPlayer.parseContentSplited(contents.stringContent(), ";").forEach {
             // Folia 必须使用实体调度器 暂时不做优雅的兼容性处理 后期其他功能需要单独处理Folia时再修改
             if (Folia.isFolia) {
-                FoliaUtil.invokeCommandWithEntityScheduler(player,it)
+                FoliaUtil.invokeCommandWithEntityScheduler(player, it)
             }else{
                 submit(async = false) {
                     player.performCommand(it)
