@@ -3,6 +3,7 @@ package trplugins.menu.module.conf
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import taboolib.common.platform.function.console
+import taboolib.common.platform.function.getDataFolder
 import taboolib.common.platform.function.releaseResourceFile
 import taboolib.module.lang.sendLang
 import taboolib.platform.util.sendLang
@@ -23,7 +24,7 @@ object Loader {
 
     private val folder by lazy {
         Menu.menus.clear()
-        val folder = File(TrMenu.plugin.dataFolder, "menus")
+        val folder = File(getDataFolder(), "menus")
 
         if (!folder.exists()) {
             arrayOf(

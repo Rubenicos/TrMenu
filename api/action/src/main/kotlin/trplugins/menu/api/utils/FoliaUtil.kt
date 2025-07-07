@@ -11,7 +11,7 @@ import taboolib.platform.BukkitPlugin
  */
 object FoliaUtil {
 
-    fun invokeCommandWithEntityScheduler(player: ProxyPlayer,command:String){
+    fun invokeCommandWithEntityScheduler(player: ProxyPlayer, command:String){
         getEntityScheduler(player).execute(BukkitPlugin.getInstance(),{
             player.performCommand(command)
         },null,0)

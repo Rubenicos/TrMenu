@@ -17,7 +17,7 @@ class Chat(handle: ActionHandle) : ActionBase(handle) {
     override val regex = "chat|send|say".toRegex()
 
     override fun onExecute(contents: ActionContents, player: ProxyPlayer, placeholderPlayer: ProxyPlayer) {
-        contents.stringContent().parseContentSplited(placeholderPlayer, contents.stringContent()).forEach {
+        contents.stringContent().parseContentSplited(placeholderPlayer).forEach {
             player.chat(it)
         }
     }
