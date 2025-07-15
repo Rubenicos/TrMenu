@@ -61,7 +61,7 @@ subprojects {
             repoTabooLib = "https://repo.aeoliancloud.com/repository/releases"
         }
         version {
-            taboolib = "6.2.3-5297ae6"
+            taboolib = "6.2.3-7105e58f"
             coroutines = null
         }
     }
