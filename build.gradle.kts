@@ -71,7 +71,7 @@ subprojects {
         maven("https://repo.aeoliancloud.com/repository/releases") { isAllowInsecureProtocol = true }
         mavenCentral()
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
-        maven("http://sacredcraft.cn:8081/repository/releases") { isAllowInsecureProtocol = true }
+//        maven("http://sacredcraft.cn:8081/repository/releases") { isAllowInsecureProtocol = true }
         maven("https://repo.codemc.io/repository/nms/")
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
         maven("https://repo.opencollab.dev/main/")
