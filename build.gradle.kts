@@ -5,7 +5,7 @@ plugins {
     java
     idea
     kotlin("jvm") version "2.1.0"
-    id("io.izzel.taboolib") version "2.0.23"
+    id("io.izzel.taboolib") version "2.0.25"
 }
 
 // 这段。一言难尽，但我不想动 (依托)
@@ -59,9 +59,10 @@ subprojects {
                 PtcObject
             )
             repoTabooLib = "https://repo.aeoliancloud.com/repository/releases"
+            disableOnSkippedVersion = false
         }
         version {
-            taboolib = "6.2.3-7105e58f"
+            taboolib = "6.2.3-ac49c9a"
             coroutines = null
         }
     }
