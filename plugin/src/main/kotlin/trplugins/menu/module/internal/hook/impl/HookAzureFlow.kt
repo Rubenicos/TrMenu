@@ -14,7 +14,7 @@ class HookAzureFlow : HookAbstract() {
     fun getItem(material: String, player: Player): ItemStack {
 
         val factory = AzureFlowAPI.getFactory(material)
-        val stack = factory?.build()?.virtualItemStack(player) ?: empty
+        val stack = factory?.build()?.itemStack(player) ?: empty
         return stack
     }
 }
