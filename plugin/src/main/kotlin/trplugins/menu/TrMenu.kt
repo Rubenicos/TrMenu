@@ -8,6 +8,7 @@ import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import taboolib.module.lang.Language
 import taboolib.module.lang.sendLang
+import taboolib.module.nms.MinecraftVersion
 import taboolib.platform.util.bukkitPlugin
 import trplugins.menu.api.action.ActionHandle
 import trplugins.menu.api.action.impl.menu.SetTitle
@@ -93,7 +94,7 @@ object TrMenu : Plugin() {
         RegisterCommands.load()
         Bindings.load()
         Tell.useComponent = SETTINGS.getBoolean("Action.Using-Component", true)
-        SetTitle.useComponent = SETTINGS.getBoolean("Action.Title-Using-Component", false)
+        SetTitle.useComponent = if (MinecraftVersion.isHigherOrEqual(MinecraftVersion.V1_14)) SETTINGS.getBoolean("Action.Title-Using-Component", false) else false
         PlatformProvider.compute()
         NMS.javaStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Java", false)
         NMS.bedrockStaticInventory = SETTINGS.getBoolean("Options.Static-Inventory.Bedrock", false)
