@@ -8,6 +8,7 @@ import taboolib.common.platform.command.subCommand
 import taboolib.common.platform.function.adaptCommandSender
 import taboolib.module.chat.Components
 import taboolib.module.nms.MinecraftVersion
+import taboolib.platform.BukkitPlugin
 import taboolib.platform.util.asLangText
 import trplugins.menu.TrMenu
 import trplugins.menu.module.internal.command.impl.*
@@ -54,6 +55,10 @@ object CommandHandler {
     @AppearHelper
     @CommandBody(permission = "trmenu.command.sounds", optional = true)
     var sounds = CommandSounds.command
+
+    @AppearHelper
+    @CommandBody(permission = "trmenu.command.data", optional = true)
+    val data = CommandData.command
 
     @CommandBody(permission = "trmenu.command.debug", optional = true)
     val debug = CommandDebug.command
