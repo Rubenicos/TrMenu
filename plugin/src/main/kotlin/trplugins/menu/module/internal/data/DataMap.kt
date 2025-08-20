@@ -7,7 +7,7 @@ package trplugins.menu.module.internal.data
 @JvmInline
 value class DataMap(val data: MutableMap<String, Any?> = mutableMapOf()) {
 
-    operator fun set(key: String, value: String) {
+    operator fun set(key: String, value: Any?) {
         data[key] = value
     }
 

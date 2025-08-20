@@ -62,6 +62,7 @@ Command-Item-Description: 'Манипулировать предметами'
 Command-Convert-Description: 'Конвертировать тип меню'
 Command-Action-Description: 'Выполнить действия для теста'
 Command-Sounds-Description: 'Предварительный просмотр и тестирование звуков'
+Command-Data-Description: 'Modify & get data'
 
 Command-Open-Unknown-Menu: '&8[&3Tr&bMenu&8] &7Неизвестное меню: &6{0} &7.'
 Command-Open-Unknown-Player: '&8[&3Tr&bMenu&8] &7Игрок &f{0} &7не в сети.'
@@ -91,3 +92,5 @@ Command-Convert-Unknown-Menu: '&8[&3Tr&bMenu&8] &7Неизвестное мен�
 Command-Convert-Unknown-Type: '&8[&3Tr&bMenu&8] &7Неизвестный вид &b{0} &7.'
 Command-Convert-Type-Already: '&8[&3Tr&bMenu&8] &7Вид меню &6{0} &7 находится &b{1} &7.'
 Command-Convert-Converted: '&8[&3Tr&bMenu&8] &7Типичное меню от &6{0} &7 до &b{1}&7.'
+Command-Data-Get: '&8[&3Tr&bMenu&8] &7Получение &6{1} &7данных &6{2} &7для &7игрока &6{0}&7: &f{3}'
+Command-Data-Invalid-Modify: '&8[&3Tr&bMenu&8] &cInvalid modify type.'

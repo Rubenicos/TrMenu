@@ -1,6 +1,7 @@
 package trplugins.menu.module.internal.data
 
 import org.bukkit.Bukkit
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.metadata.FixedMetadataValue
 import taboolib.common.LifeCycle
@@ -8,8 +9,11 @@ import taboolib.common.platform.Awake
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.Schedule
 import taboolib.common.platform.function.submitAsync
+import taboolib.common5.cdouble
+import taboolib.common5.cint
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
+import taboolib.platform.util.sendLang
 import trplugins.menu.TrMenu
 import trplugins.menu.TrMenu.SETTINGS
 import trplugins.menu.api.event.CustomDatabaseEvent
@@ -175,6 +179,83 @@ object Metadata {
             is MenuSession -> target.placeholderPlayer.name
             else -> throw Exception("Unknown target type.")
         }
+    }
+
+
+    fun modifyData(
+        player: Player,
+        modifyType: ModifyType,
+        dataType: DataType,
+        dataName: String,
+        value: String,
+        sender: CommandSender
+    ) {
+        val data = getData(player, dataType, dataName)
+        when (modifyType) {
+            ModifyType.ADD -> {
+                setData(player, dataType, dataName, calculate(data, value))
+            }
+
+            ModifyType.REMOVE -> {
+                setData(player, dataType, dataName, null)
+            }
+
+            ModifyType.SET -> {
+                setData(player, dataType, dataName, value)
+            }
+
+            ModifyType.GET -> {
+                sender.sendLang(
+                    "Command-Data-Get",
+                    player.name,
+                    dataType,
+                    dataName,
+                    data.toString()
+                )
+            }
+        }
+    }
+
+    fun setData(player: Player, dataType: DataType, dataName: String, value: Any?) {
+        when (dataType) {
+            DataType.DATA -> {
+                getData(player)[dataName] = value
+                if (!isUseLegacy) {
+                    saveData(player, dataName)
+                }
+            }
+
+            DataType.META -> {
+                getMeta(player)[dataName] = value
+            }
+
+            DataType.GLOBAL -> setGlobalData(dataName, value)
+        }
+    }
+
+    fun getData(player: Player, dataType: DataType, dataName: String): Any? {
+        return when (dataType) {
+            DataType.DATA -> getData(player)[dataName]
+            DataType.META -> getMeta(player)[dataName]
+            DataType.GLOBAL -> getGlobalData(dataName)
+        }
+    }
+
+    fun calculate(preValue: Any?, value: String): Any {
+        val valueIsInt = value.toIntOrNull() != null
+        return if ((preValue?.toString()?.toIntOrNull() != null || preValue == null) && valueIsInt) {
+            preValue.cint + value.cint
+        } else {
+            preValue.cdouble + value.cdouble
+        }
+    }
+
+    enum class DataType {
+        DATA, META, GLOBAL
+    }
+
+    enum class ModifyType {
+        ADD, REMOVE, SET, GET
     }
 
 }

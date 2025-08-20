@@ -200,3 +200,6 @@ Command-Convert-Type-Already: '&8[&3Tr&bMenu&8] &7Тип меню &6{0} &7вже
 Command-Convert-Unknown-Type: '&8[&3Tr&bMenu&8] &7Невідомий тип &b{0} &7.'
 Command-Convert-Converted: '&8[&3Tr&bMenu&8] &7Тип меню &6{0} &7було перетворено на &b{1}&7.'
 Menu-Loader-Loading: '&8[&3Tr&bMenu&8] &6ПОТІК &8| &3Завантаження меню...'
+Command-Data-Get: '&8[&3Tr&bMenu&8] &7Отримати дані про &6{1} &7гравців &6{0} {2} &7: &f{3}'
+Command-Data-Invalid-Modify: '&8[&3Tr&bMenu&8] &cInvalid modify type.'
+Command-Data-Description: 'Modify & get data'
