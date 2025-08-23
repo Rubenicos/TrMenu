@@ -18,6 +18,7 @@ import trplugins.menu.module.internal.script.FunctionParser
 import trplugins.menu.util.parseGradients
 import trplugins.menu.util.parseRainbow
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @author Arasple
@@ -300,7 +301,7 @@ class MenuSession(
         private var UID = 0
 
         @JvmField
-        val SESSIONS = mutableMapOf<UUID, MenuSession>()
+        val SESSIONS = ConcurrentHashMap<UUID, MenuSession>()
         var langPlayer: String = ""
 
         fun getSession(player: Player): MenuSession {
