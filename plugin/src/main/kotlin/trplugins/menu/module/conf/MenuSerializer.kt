@@ -2,11 +2,11 @@ package trplugins.menu.module.conf
 
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.InventoryView
-import org.bukkit.inventory.ItemFlag
 import taboolib.common.platform.function.pluginId
 import taboolib.common.platform.function.warning
 import taboolib.common.util.asList
 import taboolib.library.configuration.ConfigurationSection
+import taboolib.library.xseries.XItemFlag
 import taboolib.module.configuration.Configuration
 import taboolib.module.configuration.Type
 import taboolib.module.lang.Language
@@ -42,6 +42,7 @@ import trplugins.menu.util.collections.IndivList
 import trplugins.menu.util.conf.Property
 import trplugins.menu.util.parseIconId
 import java.io.File
+import kotlin.jvm.optionals.getOrNull
 import kotlin.math.max
 
 /**
@@ -342,7 +343,8 @@ object MenuSerializer : ISerializer {
             val flags = if (inherit.contains(Property.ICON_DISPLAY_FLAGS)) {
                 def!!.display.meta.flags
             } else Property.ICON_DISPLAY_FLAGS.ofStringList(display).mapNotNull { flag ->
-                ItemFlag.entries.find { it.name.equals(flag, true) }
+//                ItemFlag.entries.find { it.name.equals(flag, true) }
+                XItemFlag.of(flag).getOrNull()?.get()
             }.toTypedArray()
             val nbt = if (inherit.contains(Property.ICON_DISPLAY_NBT)) {
                 def!!.display.meta.nbt
