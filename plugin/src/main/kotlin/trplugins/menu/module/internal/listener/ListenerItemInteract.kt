@@ -53,11 +53,7 @@ object ListenerItemInteract {
     class InventoryNMSImpl : InventoryNMS() {
 
         private val `clazz$CraftInventoryCustom$MinecraftInventory` =
-            if (versionId >= 12108) {
-                obcClass("inventory.CraftInventoryCustom\$MinecraftInventory")
-            } else {
-                obcClass("org.bukkit.craftbukkit.inventory.CraftInventoryCustom\$MinecraftInventory")
-            }
+            obcClass("inventory.CraftInventoryCustom\$MinecraftInventory")
 
         override fun checkInventory(inventory: Inventory): Boolean {
             return `clazz$CraftInventoryCustom$MinecraftInventory`.isInstance((inventory as CraftInventory).inventory)
