@@ -19,6 +19,15 @@ tasks.build {
     }
     dependsOn(project(":plugin").tasks.build)
 }
+tasks.taboolibBuildApi {
+    doLast {
+        val plugin = project(":plugin")
+        val file =
+            file("${plugin.layout.buildDirectory.get()}/libs").listFiles()?.find { it.endsWith("plugin-$version-api.jar") }
+
+        file?.copyTo(file("${project.layout.buildDirectory.get()}/libs/${project.name}-$version-api.jar"), true)
+    }
+}
 
 subprojects {
 
@@ -62,7 +71,7 @@ subprojects {
             disableOnSkippedVersion = false
         }
         version {
-            taboolib = "6.2.3-6bdc1c7"
+            taboolib = "6.2.3-18c77c6a"
             coroutines = null
         }
     }
