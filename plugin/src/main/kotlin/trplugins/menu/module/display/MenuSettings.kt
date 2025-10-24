@@ -52,7 +52,7 @@ class MenuSettings(
                 val registered = PlaceholderAPI.getRegisteredIdentifiers()
                 field.filter { ex -> registered.none { it.equals(ex, true) } }.toTypedArray()
             } else {
-                arrayOf("PLUGINCORE")
+                arrayOf("PlaceholderAPI Plugin")
             }
         }
 
