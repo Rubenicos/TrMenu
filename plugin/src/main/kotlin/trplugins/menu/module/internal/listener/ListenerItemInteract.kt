@@ -6,6 +6,7 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.Inventory
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.info
 import taboolib.common5.Baffle
 import taboolib.module.nms.MinecraftVersion.versionId
 import taboolib.module.nms.nmsProxy
@@ -35,10 +36,6 @@ object ListenerItemInteract {
         val player = e.player
         val item = e.item ?: return
         val session = MenuSession.getSession(player)
-
-        if (!InventoryNMS.instance.checkInventory(player.openInventory.topInventory)
-            || !InventoryNMS.instance.checkInventory(player.inventory)
-        ) return
 
         if (player.openInventory.topInventory.holder != (player.inventory as Inventory).holder || session.menu != null) return
         if (interactCooldown.value.hasNext(player.name)) {
