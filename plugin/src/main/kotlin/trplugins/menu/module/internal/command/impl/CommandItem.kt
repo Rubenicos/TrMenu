@@ -101,7 +101,7 @@ object CommandItem : CommandExpression {
         val stringJson: String = if (!HookPlugin.getNBTAPI().isHooked) {
             val json = JsonObject()
             json.addProperty("type", item.type.name)
-            json.addProperty("data", item.data!!.data)
+            json.addProperty("data", if (MinecraftVersion.isLowerOrEqual(MinecraftVersion.V1_12)) item.data!!.data else 0)
             json.addProperty("amount", item.amount)
             json.add("meta", Gson().toJsonTree(item.getItemTag()))
             json.toString()
