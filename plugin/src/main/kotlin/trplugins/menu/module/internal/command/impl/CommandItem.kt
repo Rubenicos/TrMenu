@@ -12,6 +12,7 @@ import taboolib.common.platform.function.submit
 import taboolib.library.xseries.XSound
 import taboolib.module.configuration.Configuration
 import taboolib.module.configuration.Type
+import taboolib.module.nms.MinecraftVersion
 import taboolib.module.nms.getItemTag
 import taboolib.module.nms.getName
 import taboolib.platform.util.isAir
@@ -19,7 +20,6 @@ import taboolib.platform.util.sendLang
 import taboolib.type.BukkitEquipment
 import trplugins.menu.module.internal.command.CommandExpression
 import trplugins.menu.module.internal.hook.HookPlugin
-import trplugins.menu.module.internal.hook.impl.HookNBTAPI
 import trplugins.menu.module.internal.item.ItemRepository
 import trplugins.menu.util.bukkit.ItemHelper
 

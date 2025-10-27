@@ -3,6 +3,7 @@ package trplugins.menu.module.internal.hook
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import taboolib.common.platform.function.console
+import taboolib.common.util.unsafeLazy
 import taboolib.module.lang.sendLang
 import trplugins.menu.module.internal.script.Bindings
 import trplugins.menu.module.internal.script.jexl.JexlAgent
@@ -21,7 +22,7 @@ abstract class HookAbstract {
         return null
     }
 
-    val plugin: Plugin? by lazy {
+    val plugin: Plugin? by unsafeLazy {
         Bukkit.getPluginManager().getPlugin(name)
     }
 
