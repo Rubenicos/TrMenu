@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.event.player.PlayerToggleSneakEvent
 import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.PlayerInventory
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.adaptPlayer
@@ -14,6 +15,7 @@ import taboolib.module.nms.MinecraftVersion
 import trplugins.menu.TrMenu
 import trplugins.menu.TrMenu.actionHandle
 import trplugins.menu.api.reaction.Reactions
+import trplugins.menu.api.receptacle.vanilla.window.WindowListener
 import trplugins.menu.module.display.MenuSession
 import trplugins.menu.module.internal.data.Metadata
 
@@ -111,6 +113,7 @@ object Shortcuts {
     @SubscribeEvent(ignoreCancelled = true)
     fun onClick(e: InventoryClickEvent) {
         val player = e.whoClicked as Player
+        if (e.inventory !is PlayerInventory) return
 
         if (player.openInventory.topInventory.holder == player.inventory.holder && e.slot < 0) {
             borderClick(player, e.click)
