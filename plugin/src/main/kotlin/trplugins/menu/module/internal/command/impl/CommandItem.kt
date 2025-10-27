@@ -12,6 +12,7 @@ import taboolib.common.platform.function.submit
 import taboolib.library.xseries.XSound
 import taboolib.module.configuration.Configuration
 import taboolib.module.configuration.Type
+import taboolib.module.nms.MinecraftVersion
 import taboolib.module.nms.getItemTag
 import taboolib.module.nms.getName
 import taboolib.platform.util.isAir
@@ -19,7 +20,6 @@ import taboolib.platform.util.sendLang
 import taboolib.type.BukkitEquipment
 import trplugins.menu.module.internal.command.CommandExpression
 import trplugins.menu.module.internal.hook.HookPlugin
-import trplugins.menu.module.internal.hook.impl.HookNBTAPI
 import trplugins.menu.module.internal.item.ItemRepository
 import trplugins.menu.util.bukkit.ItemHelper
 
@@ -101,7 +101,7 @@ object CommandItem : CommandExpression {
         val stringJson: String = if (!HookPlugin.getNBTAPI().isHooked) {
             val json = JsonObject()
             json.addProperty("type", item.type.name)
-            json.addProperty("data", item.data!!.data)
+            json.addProperty("data", if (MinecraftVersion.isLowerOrEqual(MinecraftVersion.V1_12)) item.data!!.data else 0)
             json.addProperty("amount", item.amount)
             json.add("meta", Gson().toJsonTree(item.getItemTag()))
             json.toString()
