@@ -17,6 +17,7 @@ import trplugins.menu.api.receptacle.ReceptacleCloseEvent
 import trplugins.menu.api.receptacle.ReceptacleInteractEvent
 import trplugins.menu.api.receptacle.getViewingReceptacle
 import trplugins.menu.api.receptacle.vanilla.window.NMS.Companion.useStaticInventory
+import trplugins.menu.api.receptacle.vanilla.window.StaticInventory.staticInventory
 
 @PlatformSide(Platform.BUKKIT)
 object WindowListener {
@@ -67,6 +68,7 @@ object WindowListener {
 
     @SubscribeEvent
     fun onClick(e: InventoryClickEvent) {
+        (e.whoClicked as? Player)?.staticInventory ?: return
         if (e.inventory.holder is StaticInventory.Holder) {
             e.isCancelled = true
 
@@ -81,6 +83,7 @@ object WindowListener {
 
     @SubscribeEvent
     fun onClose(e: InventoryCloseEvent) {
+        (e.player as? Player)?.staticInventory ?: return
         if (e.inventory.holder is StaticInventory.Holder) {
             val player = e.player as? Player ?: return
             val receptacle = player.getViewingReceptacle() as? WindowReceptacle ?: return
@@ -91,6 +94,7 @@ object WindowListener {
 
     @SubscribeEvent
     fun onDrag(e: InventoryDragEvent) {
+        (e.whoClicked as? Player)?.staticInventory ?: return
         if (e.inventory.holder is StaticInventory.Holder) {
             e.isCancelled = true
         }

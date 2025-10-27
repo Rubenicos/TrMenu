@@ -47,23 +47,4 @@ object ListenerItemInteract {
         }
     }
 
-    class InventoryNMSImpl : InventoryNMS() {
-
-        private val `clazz$CraftInventoryCustom$MinecraftInventory` =
-            obcClass("inventory.CraftInventoryCustom\$MinecraftInventory")
-
-        override fun checkInventory(inventory: Inventory): Boolean {
-            return `clazz$CraftInventoryCustom$MinecraftInventory`.isInstance((inventory as CraftInventory).inventory)
-        }
-
-    }
-
-    abstract class InventoryNMS {
-        abstract fun checkInventory(inventory: Inventory): Boolean
-
-        companion object {
-            val instance by lazy { nmsProxy<InventoryNMS>() }
-        }
-    }
-
 }
