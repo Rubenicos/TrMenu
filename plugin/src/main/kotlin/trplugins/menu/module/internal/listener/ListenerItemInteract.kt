@@ -28,7 +28,7 @@ object ListenerItemInteract {
         Baffle.of(TrMenu.SETTINGS.getLong("Menu.Settings.Bound-Item-Interval", 2000), TimeUnit.MILLISECONDS)
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onInteract(e: PlayerInteractEvent) {
         ListenerItemInteract::interactCooldown.get()
 
