@@ -90,6 +90,8 @@ open class Item(
             meta.tooltipStyle(session, this)
             meta.itemModel(session, this)
             meta.hideTooltip(session, this)
+            meta.unbreakable(session, this)
+            meta.data(session, this)
 
             if (meta.hasAmount()) this.amount = meta.amount(session)
         }
@@ -132,7 +134,7 @@ open class Item(
         else {
             val current = cache[session.id]
             try {
-                val new = buildItem(current!!) { name = parsedName(session) }
+                val new = buildItem(current!!) { parsedName(session)?.let { name = it } }
                 cache[session.id] = new
             } catch (t: Throwable) {
                 t.stackTrace

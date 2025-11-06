@@ -50,9 +50,9 @@ object ItemHelper {
                 if (type.size == 1) {
                     builder.finishing = {
                         try {
-                            (it.itemMeta as? BannerMeta)?.baseColor = DyeColor.valueOf(type[0].uppercase())
+                            (it.itemMeta as? BannerMeta)?.addPattern(Pattern(DyeColor.valueOf(type[0].uppercase()), PatternType.BASE))
                         } catch (e: Exception) {
-                            (it.itemMeta as? BannerMeta)?.baseColor = DyeColor.BLACK
+                            (it.itemMeta as? BannerMeta)?.addPattern(Pattern(DyeColor.BLACK, PatternType.BASE))
                         }
                     }
                 } else if (type.size == 2) {

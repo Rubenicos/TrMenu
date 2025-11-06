@@ -94,3 +94,4 @@ Command-Convert-Type-Already: '&8[&3Tr&bMenu&8] &7Вид меню &6{0} &7 на�
 Command-Convert-Converted: '&8[&3Tr&bMenu&8] &7Типичное меню от &6{0} &7 до &b{1}&7.'
 Command-Data-Get: '&8[&3Tr&bMenu&8] &7Получение &6{1} &7данных &6{2} &7для &7игрока &6{0}&7: &f{3}'
 Command-Data-Invalid-Modify: '&8[&3Tr&bMenu&8] &cInvalid modify type.'
+Dump-Info-Created: '&8[&3Tr&bMenu&8] &7File Created: &f{0}'

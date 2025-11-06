@@ -3,11 +3,13 @@ package trplugins.menu.module.internal.command.impl
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import taboolib.common.io.newFile
 import taboolib.common.platform.command.subCommand
 import taboolib.common.platform.function.adaptCommandSender
+import taboolib.common.platform.function.getDataFolder
 import taboolib.common.platform.function.pluginVersion
-import taboolib.common.platform.function.submit
 import taboolib.module.chat.HexColor
+import taboolib.platform.util.sendLang
 import trplugins.menu.TrMenu
 import trplugins.menu.api.TrMenuAPI
 import trplugins.menu.module.display.Menu
@@ -84,26 +86,43 @@ object CommandDebug : CommandExpression {
         val dump = buildString {
             append("TrMenu Dump Information (Date: ${Time.formatDate()})\n\n")
             append("| Server OS: ${properties["os.name"]} ${properties["os.arch"]} ${properties["os.version"]}\n")
-            append("| Server software: ${Bukkit.getServer().version} (${Bukkit.getServer().bukkitVersion})\n")
-            append("| Java version: ${System.getProperty("java.version")}\n\n")
+            append("| Server software: ${Bukkit.getName()} - ${Bukkit.getServer().version} (${Bukkit.getServer().bukkitVersion})\n")
+            append("| Java version: ${getJavaVendorDetailed()}\n\n")
             append("| TrMenu: ${pluginVersion}\n")
 //            append("   ${description.getString("built-time")} by ${description.getString("built-by")})\n\n")
             append("Installed Plugins: \n")
             Bukkit.getPluginManager().plugins.sortedBy { it.name }.forEach { plugin ->
-                var file: File? = null
-                try {
-                    Class.forName("org.bukkit.plugin.java.JavaPlugin").also { it ->
-                        file = it.getMethod("getFile").also { it.isAccessible = true }.invoke(plugin) as File
-                    }
-                } catch (t: Throwable) {
-                    t.stackTrace
-                }
-                val size = (file?.length() ?: 0) / 1024
-                append("· ${plugin.name} - ${plugin.description.version} ($size KB)\n")
+                append("· ${plugin.name} - ${plugin.description.version}\n")
             }
         }
+        val fileName = "dump-info-${System.currentTimeMillis()}.log"
+        val file = newFile(getDataFolder(), "debug/$fileName")
+        file.writeText(dump)
+        sender.sendLang("Dump-Info-Created", file.absolutePath)
         Paster.paste(adaptCommandSender(sender), dump)
     }
+
+    private fun getJavaVendorDetailed(): String {
+        val vendor = System.getProperty("java.vendor") ?: "Unknown"
+        val version = System.getProperty("java.version") ?: "?"
+        val runtimeName = System.getProperty("java.runtime.name") ?: ""
+        val runtimeVersion = System.getProperty("java.runtime.version") ?: ""
+
+        return buildString {
+            append(vendor)
+            append(" (")
+            append(runtimeName)
+            if (runtimeVersion.isNotBlank()) {
+                append(" ")
+                append(runtimeVersion)
+            } else {
+                append(" v")
+                append(version)
+            }
+            append(")")
+        }
+    }
+
 
     /**
      * 服务器信息查看

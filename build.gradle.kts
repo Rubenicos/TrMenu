@@ -68,10 +68,11 @@ subprojects {
                 PtcObject
             )
             repoTabooLib = "https://repo.aeoliancloud.com/repository/releases"
+//            repoTabooLib = project.repositories.mavenLocal().url.toString()
             disableOnSkippedVersion = false
         }
         version {
-            taboolib = "6.2.3-c573ce52"
+            taboolib = "6.2.3-d4a5f0ea"
             coroutines = null
         }
     }
