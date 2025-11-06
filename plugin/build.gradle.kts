@@ -67,6 +67,8 @@ dependencies {
     compileOnly("org.apache.commons:commons-lang3:3.17.0")
 
     // Server Core
+    compileOnly("ink.ptms.core:v12005:12005-minimize:mapped")
+    compileOnly("ink.ptms.core:v12005:12005-minimize:universal")
     compileOnly("ink.ptms.core:v12002:12002-minimize:mapped")
     compileOnly("ink.ptms.core:v12002:12002-minimize:universal")
     compileOnly("ink.ptms.core:v11904:11904-minimize:mapped")
