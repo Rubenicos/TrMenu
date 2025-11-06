@@ -1,5 +1,7 @@
 package trplugins.menu.util
 
+import taboolib.common5.cint
+
 /**
  * @author Arasple
  * @date 2021/1/31 11:53
@@ -17,6 +19,10 @@ value class EvalResult(val any: Any? = null) {
 
     fun asString(): String {
         return any.toString()
+    }
+
+    fun asInt(def: Int = 0): Int {
+        return any?.cint ?: def
     }
 
     companion object {
