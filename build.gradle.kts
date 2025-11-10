@@ -72,7 +72,7 @@ subprojects {
             disableOnSkippedVersion = false
         }
         version {
-            taboolib = "6.2.3-d4a5f0ea"
+            taboolib = "6.2.4-621517d"
             coroutines = null
         }
     }
