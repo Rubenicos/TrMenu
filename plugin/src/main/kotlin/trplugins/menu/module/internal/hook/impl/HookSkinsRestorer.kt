@@ -16,10 +16,6 @@ class HookSkinsRestorer : HookAbstract() {
         } else {
             null
         }
-        get() {
-            if (field == null) reportAbuse()
-            return field
-        }
 
     override val isHooked by lazy {
         if (plugin?.isEnabled == false) return@lazy false
