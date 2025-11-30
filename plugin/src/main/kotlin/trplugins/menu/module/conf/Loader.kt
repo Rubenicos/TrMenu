@@ -54,8 +54,6 @@ object Loader {
             true
         }
 
-        val errors = mutableListOf<String>()
-
         val files = mutableListOf<File>().also {
             it.addAll(filterMenuFiles(folder))
             it.addAll(TrMenu.SETTINGS.getStringList("Loader.Menu-Files").flatMap { filterMenuFiles(File(it)) })
@@ -82,7 +80,7 @@ object Loader {
                     result = MenuSerializer.serializeMenu(it)
                 } catch (t: Throwable) {
                     return@start SerialzeResult(SerialzeResult.Type.MENU, SerialzeResult.State.FAILED).also {
-                        t.message?.let { msg -> it.errors.add(msg) }
+                        it.submitError(t)
                     }
                 }
                 if (result.state == SerialzeResult.State.IGNORE) {
@@ -90,7 +88,7 @@ object Loader {
                 }
                 if (result.succeed() && TrMenu.SETTINGS.getBoolean("Loader.Listen-Files", true)) {
                     listen(it)
-                } else errors.addAll(result.errors)
+                }
                 result
             },
             // success
@@ -113,7 +111,7 @@ object Loader {
                                 result.first.nameWithoutExtension,
                                 result.second.type.name
                             )
-                            result.second.errors.forEach { console().sendMessage("    §8$it") }
+                            result.second.printStackTrace()
                             console().sendMessage("")
                         }
                         Menu.menus.add(menu)
@@ -139,7 +137,7 @@ object Loader {
                             file.nameWithoutExtension,
                             it.type.name
                         )
-                        it.errors.forEach { console().sendMessage("    §8$it") }
+                        it.printStackTrace()
                         console().sendMessage("")
                     }
                 }
