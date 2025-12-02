@@ -1,5 +1,6 @@
 package trplugins.menu.module.conf.prop
 
+import taboolib.common.platform.function.console
 import taboolib.common.util.replaceWithOrder
 import trplugins.menu.module.display.icon.Icon
 import trplugins.menu.module.display.layout.MenuLayout
@@ -11,7 +12,7 @@ import trplugins.menu.module.display.layout.MenuLayout
 class SerialzeResult(
     val type: Type,
     var state: State = State.SUCCESS,
-    val errors: MutableList<String> = mutableListOf(),
+    val errors: MutableList<Throwable> = mutableListOf(),
     var result: Any? = null
 ) {
 
@@ -19,9 +20,37 @@ class SerialzeResult(
         return state == State.SUCCESS && result != null
     }
 
+    fun submitError(error: Throwable) {
+        errors.add(error)
+    }
+
     fun submitError(error: SerializeError, vararg args: Any) {
         state = State.FAILED
-        errors.add(SerializeError.formatInfo(error).replaceWithOrder(*args))
+        errors.add(RuntimeException(SerializeError.formatInfo(error).replaceWithOrder(*args)))
+    }
+
+    fun submitErrors(result: SerialzeResult): Boolean {
+        return errors.addAll(result.errors)
+    }
+
+    fun printStackTrace() {
+        errors.forEach { printStackTrace(it) }
+    }
+
+    fun printStackTrace(t: Throwable) {
+        printStackTrace(t, "    §8")
+    }
+
+    fun printStackTrace(t: Throwable, prefix: String) {
+        console().sendMessage(prefix + t)
+
+        t.stackTrace.forEach { console().sendMessage("$prefix\tat $it") }
+
+        val cause = t.cause
+        if (cause != null) {
+            console().sendMessage(prefix + "Caused by:")
+            printStackTrace(cause)
+        }
     }
 
     @Suppress("UNCHECKED_CAST")

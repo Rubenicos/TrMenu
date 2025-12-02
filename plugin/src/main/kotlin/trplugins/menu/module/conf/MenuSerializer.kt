@@ -85,7 +85,7 @@ object MenuSerializer : ISerializer {
         // 读取菜单设置
         val settings = serializeSetting(conf, languages)
         if (!settings.succeed()) {
-            result.errors.addAll(settings.errors).also {
+            result.submitErrors(settings).also {
                 return result
             }
         }
@@ -93,12 +93,12 @@ object MenuSerializer : ISerializer {
         // 读取菜单布局
         val layout = serializeLayout(conf)
         if (!layout.succeed()) {
-            result.errors.addAll(layout.errors).also { return result }
+            result.submitErrors(layout).also { return result }
         }
         // 读取菜单图标
         val icons = serializeIcons(conf, languages, layout.asLayout())
         if (!icons.succeed()) {
-            result.errors.addAll(icons.errors).also {
+            result.submitErrors(icons).also {
                 return result
             }
         }
