@@ -49,6 +49,7 @@ object Metadata {
 
     // Copy in the Adyeshach
     val database by lazy {
+        if (!isUseLegacy) return@lazy null
         when (val db = SETTINGS.getString("Database.Method")?.uppercase()) {
             "LOCAL", "SQLITE", null -> DatabaseSQLite()
             "SQL" -> DatabaseSQL()
@@ -90,7 +91,7 @@ object Metadata {
 
     fun pushData(player: Player, dataMap: DataMap = getData(player)) {
         if (isUseLegacy) {
-            getLocalePlayer(player).let {
+            getLocalePlayer(player)?.let {
                 it.getConfigurationSection("TrMenu.Data")?.getKeys(true)?.forEach { key ->
                     if (!dataMap.data.containsKey(key)) {
                         it["TrMenu.Data.$key"] = null
@@ -98,7 +99,7 @@ object Metadata {
                 }
                 dataMap.data.forEach { (key, value) -> it["TrMenu.Data.$key"] = value }
             }
-            database.push(player)
+            database?.push(player)
         } else {
             dataMap.data.forEach { (key, value) ->
                 MetaDataDao.door.update(DataEntity.constructor(player, key, value?.toString() ?: ""))
@@ -106,15 +107,15 @@ object Metadata {
         }
     }
 
-    private fun getLocalePlayer(player: Player): Configuration {
-        return database.pull(player)
+    private fun getLocalePlayer(player: Player): Configuration? {
+        return database?.pull(player)
     }
 
     fun loadData(player: Player) {
         val map: MutableMap<String, Any?> = mutableMapOf()
 
         if (isUseLegacy) {
-            getLocalePlayer(player).getConfigurationSection("TrMenu.Data")?.let { section ->
+            getLocalePlayer(player)?.getConfigurationSection("TrMenu.Data")?.let { section ->
                 section.getKeys(true).forEach { key -> map[key] = section[key] }
             }
         } else {

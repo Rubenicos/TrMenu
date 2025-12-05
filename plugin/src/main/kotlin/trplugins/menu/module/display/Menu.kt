@@ -34,7 +34,7 @@ class Menu(
     val icons: Set<Icon>,
     conf: Configuration,
     private val langKey: String? = null,
-    lang: Map<String, HashMap<String, Type>>? = null
+    lang: Map<String, Map<String, Type>>? = null
 ) {
 
     companion object {
@@ -47,7 +47,7 @@ class Menu(
     var conf: Configuration = conf
         internal set
 
-    var lang: Map<String, HashMap<String, Type>>? = lang
+    var lang: Map<String, Map<String, Type>>? = lang
         internal set
 
     val viewers: MutableSet<String> = mutableSetOf()
