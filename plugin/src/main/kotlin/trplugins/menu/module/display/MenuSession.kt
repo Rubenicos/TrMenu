@@ -144,7 +144,7 @@ class MenuSession(
             }
         }
         val content =
-            (if (preColor) funced else funced.colored().parseRainbow().parseGradients()).replaceWithOrder(*arguments)
+            (if (preColor) funced else funced.colored().parseRainbow().parseGradients()).replaceWithOrder(*arguments).replaceWithOrder(*implicitArguments)
         val papi = content.replacePlaceholder(placeholderPlayer)
 
         return if (preColor) papi else papi.colored().parseRainbow().parseGradients()
