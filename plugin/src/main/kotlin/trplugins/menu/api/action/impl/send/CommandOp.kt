@@ -7,6 +7,7 @@ import taboolib.expansion.dispatchCommandAsOp
 import trplugins.menu.api.action.ActionHandle
 import trplugins.menu.api.action.base.ActionBase
 import trplugins.menu.api.action.base.ActionContents
+import trplugins.menu.module.display.session
 
 /**
  * TrMenu
@@ -20,9 +21,23 @@ class CommandOp(handle: ActionHandle) : ActionBase(handle) {
     override val regex = "op(erator)?s?".toRegex()
 
     override fun onExecute(contents: ActionContents, player: ProxyPlayer, placeholderPlayer: ProxyPlayer) {
+        val fakeOp = player.session().menu?.settings?.commandFakeOp ?: true
         contents.stringContent().parseContentSplited(placeholderPlayer, ";").forEach {
             submit(async = false) {
-                player.cast<Player>().dispatchCommandAsOp(it)
+                if (fakeOp) {
+                    player.cast<Player>().dispatchCommandAsOp(it)
+                } else {
+                    player.isOp.let { isOp ->
+                        player.isOp = true
+                        try {
+                            player.performCommand(it)
+                        } catch (e: Throwable) {
+                            e.printStackTrace()
+                        } finally {
+                            player.isOp = isOp
+                        }
+                    }
+                }
             }
         }
     }

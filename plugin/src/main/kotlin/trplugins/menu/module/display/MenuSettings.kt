@@ -33,7 +33,8 @@ class MenuSettings(
     val closeEvent: Reactions,
     val clickEvent: Reactions,
     val tasks: List<MenuTaskData>,
-    val internalFunctions: Set<ScriptFunction>
+    val internalFunctions: Set<ScriptFunction>,
+    val commandFakeOp: Boolean = true,
 ) {
 
     companion object {
