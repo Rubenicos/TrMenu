@@ -168,6 +168,7 @@ object MenuSerializer : ISerializer {
         val eventOpen = Property.EVENT_OPEN.ofList(events)
         val eventClose = Property.EVENT_CLOSE.ofList(events)
         val eventClick = Property.EVENT_CLICK.ofList(events)
+        val commandFakeOp = Property.COMMAND_FAKE_OP.ofBoolean(options, true)
 
         val settings = MenuSettings(
             CycleList(title),
@@ -199,7 +200,8 @@ object MenuSerializer : ISerializer {
                     )
                 }
             },
-            funs.map { ScriptFunction(it.key, it.value.toString()) }.toSet()
+            funs.map { ScriptFunction(it.key, it.value.toString()) }.toSet(),
+            commandFakeOp
         )
 
         // i18n

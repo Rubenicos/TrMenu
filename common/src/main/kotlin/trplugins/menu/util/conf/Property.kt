@@ -271,7 +271,12 @@ enum class Property(val default: String, val regex: Regex) {
     /**
      * 菜单内置国际化
      */
-    LANG("Lang", "lang(uage)?|internationalization|i18n");
+    LANG("Lang", "lang(uage)?|internationalization|i18n"),
+
+    /**
+     * 菜单内虚拟OP命令
+     */
+    COMMAND_FAKE_OP("Command-Fake-Op", "command-?fake-?op");
 
     constructor(default: String, regex: String) : this(default, Regex("(?i)$regex"))
 
