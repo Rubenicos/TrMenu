@@ -63,14 +63,13 @@ class HookVault : HookAbstract() {
     /**
      * 当前 Economy provider 背后的实现插件实例。
      *
-     * provider 自身就是 Bukkit Plugin（兜底分支）时直接返回；
-     * 否则按 [Economy.getName] 在 Bukkit 插件表中匹配。
+     * ServicesManager provider 直接使用注册插件；
+     * 兜底 provider 自身就是 Bukkit Plugin。
      */
     val economyPlugin: Plugin?
         get() {
-            val provider = economyAPI ?: return null
-            return provider as? Plugin
-                ?: Bukkit.getPluginManager().getPlugin(provider.name)
+            val registration = Bukkit.getServicesManager().getRegistration(Economy::class.java)
+            return if (registration?.plugin?.isEnabled == true) registration.plugin else pluginEconomy as? Plugin
         }
 
     /**
