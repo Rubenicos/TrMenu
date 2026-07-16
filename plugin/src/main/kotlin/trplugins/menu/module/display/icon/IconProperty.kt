@@ -27,7 +27,9 @@ class IconProperty(
     }
 
     fun isLoreUpdatable(session: MenuSession): Boolean {
-        return display.lore(session).cyclable() || display.lore(session).elements.any { it -> Regexs.containsPlaceholder(it.lore.joinToString(" ") { it.first }) }
+        return display.lore(session).cyclable() || display.lore(session).elements.any { lore ->
+            lore.lore.any { (line, condition) -> condition != null || Regexs.containsPlaceholder(line) }
+        }
     }
 
     fun handleClick(type: ReceptacleClickType, session: MenuSession) {
